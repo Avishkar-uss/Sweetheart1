@@ -342,7 +342,6 @@ const renderContent = () => {
 };
 
       case 'specialday':
-        // Track page access for developer monitoring
         useEffect(() => {
           setSpecialDayData(prev => ({
             ...prev,
