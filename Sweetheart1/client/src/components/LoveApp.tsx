@@ -259,228 +259,85 @@ export default function LoveApp() {
   };
 
   const renderContent = () => {
-    switch (currentSection) {
-      case 'home':
-        return (
-          <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in pt-20">
-            <div className="mb-8">
-              <h1 className="text-4xl font-bold romantic-accent mb-4 animate-pulse-love">Daily Love Message 💖</h1>
-              <p className="text-xl romantic-text mb-8">For my Sweetheart 💝</p>
-            </div>
-            
-            <div className="romantic-light-bg rounded-xl shadow-lg p-8 mb-6 transform hover:scale-105 transition-transform duration-300">
-              <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
-                {generateDailyLoveMessage()}
-              </div>
-              <div className="text-sm romantic-text">
-                💌 A new message awaits you tomorrow
-              </div>
-            </div>
+  switch (currentSection) {
+    case 'home':
+      return (
+        <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in pt-36">
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold romantic-accent mb-4 animate-pulse-love">Daily Love Message 💖</h1>
+            <p className="text-xl romantic-text mb-8">For my Sweetheart 💝</p>
+          </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 inline-block">
-              <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Next love message in:</div>
-              <div className="text-lg font-bold romantic-accent">
-                {nextMessageTimer}
-              </div>
+          <div className="bg-white rounded-xl shadow-lg p-8 mb-6 transform hover:scale-105 transition-transform duration-300">
+            <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
+              {generateDailyLoveMessage()}
+            </div>
+            <div className="text-sm romantic-text">
+              💌 A new message awaits you tomorrow
             </div>
           </div>
-        );
 
-      case 'complaint':
-        return (
-          <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-            <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold romantic-accent mb-2">Complaint Box 💬</h2>
-              <p className="romantic-text text-sm">Your sweet concerns make this love even sweeter 💌</p>
-            </div>
-
-            <div className="romantic-light-bg rounded-xl shadow-lg p-6">
-              <Textarea 
-                value={complaintText}
-                onChange={(e) => setComplaintText(e.target.value)}
-                rows={4}
-                className="w-full p-3 border border-pink-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none mb-4"
-                placeholder="Write your sweet complaint... 💭"
-              />
-              
-              <Button 
-                onClick={submitComplaint}
-                className="romantic-accent-bg text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-200 transform hover:scale-105 w-full">
-                Submit 💝
-              </Button>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 text-center mt-4">
-              <div className="text-2xl mb-2">🤗</div>
-              <div className="romantic-text text-sm">You're loved, heard, and cherished!</div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 inline-block">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Next love message in:</div>
+            <div className="text-lg font-bold romantic-accent">
+              {nextMessageTimer}
             </div>
           </div>
-        );
+        </div>
+      );
 
-      case 'tasks':
-        return (
-          <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold romantic-accent mb-4">Love Tasks ✅</h2>
-              <p className="romantic-text">Sweet little things to make our day better</p>
+    case 'complaint':
+      return (
+        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold romantic-accent mb-2">Complaint Box 💬</h2>
+            <p className="romantic-text text-sm">Your sweet concerns make this love even sweeter 💌</p>
+          </div>
+
+          <div className="bg-pink-50 dark:bg-pink-900 rounded-xl shadow-lg p-6">
+            <Textarea 
+              value={complaintText}
+              onChange={(e) => setComplaintText(e.target.value)}
+              rows={4}
+              className="w-full p-3 border border-pink-300 dark:border-pink-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none mb-4"
+              placeholder="Write your sweet complaint... 💭"
+            />
+
+            <Button 
+              onClick={submitComplaint}
+              className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 transform hover:scale-105 w-full">
+              Submit 💝
+            </Button>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 text-center mt-4">
+            <div className="text-2xl mb-2">🤗</div>
+            <div className="romantic-text text-sm">You're loved, heard, and cherished!</div>
+          </div>
+        </div>
+      );
+
+    case 'reminders':
+      return (
+        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold romantic-accent mb-4">Daily Reminders 📋</h2>
+            <p className="romantic-text">Sweet thoughts for today</p>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+            <div className="text-lg font-medium text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
+              {generateDailyReminder()}
             </div>
 
-            <div className="romantic-light-bg rounded-xl shadow-lg p-8">
-              <div className="space-y-4">
-                {todayTasks.map((task: Task, index: number) => (
-                  <div key={index} className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded-lg hover:shadow-md transition-shadow duration-200">
-                    <input 
-                      type="checkbox" 
-                      checked={task.completed}
-                      onChange={() => toggleTask(index)}
-                      className="w-5 h-5 text-pink-500 rounded focus:ring-pink-500"
-                    />
-                    <label className={`flex-1 text-gray-700 dark:text-gray-300 ${task.completed ? 'line-through opacity-60' : ''}`}>
-                      {task.text}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-6 p-4 bg-white dark:bg-gray-700 rounded-lg text-center">
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Today's Progress</div>
-                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
-                  <div 
-                    className="romantic-accent-bg h-3 rounded-full transition-all duration-500" 
-                    style={{ width: `${progressPercentage}%` }}
-                  ></div>
-                </div>
-                <div className="text-sm romantic-text mt-2">
-                  {progressPercentage}% Complete ({completedTasks}/{todayTasks.length})
-                </div>
-              </div>
+            <div className="flex justify-center space-x-4">
+              <span className="text-2xl animate-float">🌸</span>
+              <span className="text-2xl animate-float" style={{ animationDelay: '0.5s' }}>💕</span>
+              <span className="text-2xl animate-float" style={{ animationDelay: '1s' }}>✨</span>
             </div>
           </div>
-        );
-
-      case 'hugs':
-        return (
-          <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold romantic-accent mb-4">Virtual Hugs 🤗</h2>
-              <p className="romantic-text">Sending love when we miss each other</p>
-            </div>
-
-            <div className="romantic-light-bg rounded-xl shadow-lg p-8 text-center relative">
-              {/* Spectacular Hug Animation Overlay */}
-              {hugAnimation.show && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-                  {/* Main bouncing emoji */}
-                  <div className="text-8xl animate-bounce-huge" key={hugAnimation.id}>
-                    {hugAnimation.emoji}
-                  </div>
-                  
-                  {/* Explosion effect */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="text-6xl opacity-40 animate-hug-explosion">{hugAnimation.emoji}</div>
-                  </div>
-                  
-                  {/* Floating hearts */}
-                  {hugAnimation.hearts && (
-                    <>
-                      {['💖', '💕', '💝', '❤️', '💗'].map((heart, index) => (
-                        <div 
-                          key={`heart-${index}`}
-                          className="absolute animate-heart-float text-4xl"
-                          style={{
-                            left: `${40 + index * 5}%`,
-                            top: '60%',
-                            animationDelay: `${index * 0.3}s`
-                          }}
-                        >
-                          {heart}
-                        </div>
-                      ))}
-                      
-                      {/* More hearts from different positions */}
-                      {['💖', '💕', '💝'].map((heart, index) => (
-                        <div 
-                          key={`heart2-${index}`}
-                          className="absolute animate-heart-float text-3xl"
-                          style={{
-                            right: `${35 + index * 8}%`,
-                            top: '65%',
-                            animationDelay: `${1 + index * 0.4}s`
-                          }}
-                        >
-                          {heart}
-                        </div>
-                      ))}
-                    </>
-                  )}
-                  
-                  {/* Sparkle effects */}
-                  {['✨', '⭐', '🌟'].map((sparkle, index) => (
-                    <div 
-                      key={`sparkle-${index}`}
-                      className="absolute text-2xl animate-ping"
-                      style={{
-                        left: `${20 + index * 20}%`,
-                        top: `${30 + index * 15}%`,
-                        animationDelay: `${index * 0.5}s`
-                      }}
-                    >
-                      {sparkle}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="mb-6">
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Today's Hugs Given:</div>
-                <div className="text-3xl font-bold romantic-accent">{todayHugs}</div>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                {[
-                  { emoji: '🤗', label: 'Warm Hug' },
-                  { emoji: '💝', label: 'Love Hug' },
-                  { emoji: '🌸', label: 'Gentle Hug' },
-                  { emoji: '✨', label: 'Magic Hug' },
-                  { emoji: '🦋', label: 'Butterfly Hug' },
-                  { emoji: '🌙', label: 'Goodnight Hug' }
-                ].map((hug, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => sendHug(hug.emoji)}
-                    className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95 border border-pink-200 dark:border-gray-600"
-                  >
-                    <div className="text-4xl mb-2 transform transition-transform duration-200 hover:scale-125">{hug.emoji}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">{hug.label}</div>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'reminders':
-        return (
-          <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold romantic-accent mb-4">Daily Reminders 📋</h2>
-              <p className="romantic-text">Sweet thoughts for today</p>
-            </div>
-
-            <div className="romantic-light-bg rounded-xl shadow-lg p-8 text-center">
-              <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
-                {generateDailyReminder()}
-              </div>
-              
-              <div className="flex justify-center space-x-4">
-                <span className="text-2xl animate-float">🌸</span>
-                <span className="text-2xl animate-float" style={{ animationDelay: '0.5s' }}>💕</span>
-                <span className="text-2xl animate-float" style={{ animationDelay: '1s' }}>✨</span>
-              </div>
-            </div>
-          </div>
-        );
-
+        </div>
+      );
       case 'specialday':
         // Track page access for developer monitoring
         useEffect(() => {
