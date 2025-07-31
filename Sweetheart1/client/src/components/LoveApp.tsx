@@ -328,24 +328,31 @@ const renderContent = () => {
         </div>
       );
 case 'tasks':
-      return (
-        <div className="pt-20 max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold romantic-accent mb-6 text-center">Love Tasks ✅</h2>
-          <ul className="space-y-3">
-            {todayTasks.map((task, index) => (
-              <li key={index} className={`p-3 rounded-lg ${task.completed ? 'bg-green-100' : 'bg-pink-100'} flex items-center justify-between`}>
-                <span className={task.completed ? 'line-through text-gray-500' : ''}>{task.text}</span>
-                <Button
-                  onClick={() => toggleTaskCompletion(index)}
-                  className="text-xs bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-600"
-                >
-                  {task.completed ? 'Undo' : 'Done'}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
+  return (
+    <div className="pt-20 max-w-2xl mx-auto">
+      <h2 className="text-3xl font-bold romantic-accent mb-6 text-center">Love Tasks ✅</h2>
+      <ul className="space-y-3">
+        {todayTasks.map((task, index) => (
+          <li
+            key={index}
+            className={`p-3 rounded-lg border flex items-center gap-3 ${
+              task.completed ? 'bg-green-50 border-green-300 line-through text-gray-500' : 'bg-pink-50 border-pink-300'
+            }`}
+          >
+            <button
+              onClick={() => toggleTaskCompletion(index)}
+              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                task.completed ? 'bg-green-400 border-green-500 text-white' : 'border-gray-400'
+              }`}
+            >
+              {task.completed ? '✓' : ''}
+            </button>
+            <span className="text-sm">{task.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
     case 'hugs':
       return (
