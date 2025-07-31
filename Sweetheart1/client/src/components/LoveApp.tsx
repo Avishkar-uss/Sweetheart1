@@ -327,29 +327,6 @@ const renderContent = () => {
           </div>
         </div>
       );
-
-    case 'reminders':
-      return (
-        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold romantic-accent mb-4">Daily Reminders 📋</h2>
-            <p className="romantic-text">Sweet thoughts for today</p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
-            <div className="text-lg font-medium text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
-              {generateDailyReminder()}
-            </div>
-
-            <div className="flex justify-center space-x-4">
-              <span className="text-2xl animate-float">🌸</span>
-              <span className="text-2xl animate-float" style={{ animationDelay: '0.5s' }}>💕</span>
-              <span className="text-2xl animate-float" style={{ animationDelay: '1s' }}>✨</span>
-            </div>
-          </div>
-        </div>
-      );
-
 case 'tasks':
       return (
         <div className="pt-20 max-w-2xl mx-auto">
@@ -383,6 +360,29 @@ case 'tasks':
           </Button>
         </div>
       );
+    case 'reminders':
+      return (
+        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold romantic-accent mb-4">Daily Reminders 📋</h2>
+            <p className="romantic-text">Sweet thoughts for today</p>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+            <div className="text-lg font-medium text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
+              {generateDailyReminder()}
+            </div>
+
+            <div className="flex justify-center space-x-4">
+              <span className="text-2xl animate-float">🌸</span>
+              <span className="text-2xl animate-float" style={{ animationDelay: '0.5s' }}>💕</span>
+              <span className="text-2xl animate-float" style={{ animationDelay: '1s' }}>✨</span>
+            </div>
+          </div>
+        </div>
+      );
+
+
       case 'specialday':
         return (
           <div className="max-w-4xl mx-auto content-transition animate-fade-in pt-20">
