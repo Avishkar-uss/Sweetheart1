@@ -350,7 +350,39 @@ const renderContent = () => {
         </div>
       );
 
+case 'tasks':
+      return (
+        <div className="pt-20 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold romantic-accent mb-6 text-center">Love Tasks ✅</h2>
+          <ul className="space-y-3">
+            {todayTasks.map((task, index) => (
+              <li key={index} className={`p-3 rounded-lg ${task.completed ? 'bg-green-100' : 'bg-pink-100'} flex items-center justify-between`}>
+                <span className={task.completed ? 'line-through text-gray-500' : ''}>{task.text}</span>
+                <Button
+                  onClick={() => toggleTaskCompletion(index)}
+                  className="text-xs bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-600"
+                >
+                  {task.completed ? 'Undo' : 'Done'}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
 
+    case 'hugs':
+      return (
+        <div className="pt-20 text-center">
+          <h2 className="text-3xl font-bold romantic-accent mb-6">🤗 Virtual Hugs</h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">Send and receive sweet hugs anytime 💗</p>
+          <Button
+            onClick={handleHug}
+            className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
+          >
+            Send a Hug 🤗
+          </Button>
+        </div>
+      );
       case 'specialday':
         return (
           <div className="max-w-4xl mx-auto content-transition animate-fade-in pt-20">
