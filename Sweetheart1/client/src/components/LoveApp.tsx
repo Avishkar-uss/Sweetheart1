@@ -158,6 +158,16 @@ export default function LoveApp() {
     }
   }, [isDarkMode]);
 
+   useEffect(() => {
+          setSpecialDayData(prev => ({
+            ...prev,
+            pageViews: prev.pageViews + 1,
+            lastAccessed: new Date().toISOString(),
+            lastCelebrated: today,
+            totalCelebrations: isAugust1st() ? prev.totalCelebrations + 1 : prev.totalCelebrations
+          }));
+        }, []);
+
   const navigateToSection = useCallback((section: Section) => {
     setCurrentSection(section);
     navigate(`/${section}`);
@@ -342,16 +352,6 @@ const renderContent = () => {
 };
 
       case 'specialday':
-        useEffect(() => {
-          setSpecialDayData(prev => ({
-            ...prev,
-            pageViews: prev.pageViews + 1,
-            lastAccessed: new Date().toISOString(),
-            lastCelebrated: today,
-            totalCelebrations: isAugust1st() ? prev.totalCelebrations + 1 : prev.totalCelebrations
-          }));
-        }, []);
-
         return (
           <div className="max-w-4xl mx-auto content-transition animate-fade-in pt-20">
             <div className="text-center mb-8">
