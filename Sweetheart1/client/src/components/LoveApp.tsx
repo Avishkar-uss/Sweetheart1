@@ -349,7 +349,7 @@ const renderContent = () => {
           </div>
         </div>
       );
-};
+
 
       case 'specialday':
         return (
