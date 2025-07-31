@@ -258,7 +258,7 @@ export default function LoveApp() {
     });
   };
 
-  const renderContent = () => {
+const renderContent = () => {
   switch (currentSection) {
     case 'home':
       return (
@@ -268,7 +268,7 @@ export default function LoveApp() {
             <p className="text-xl romantic-text mb-8">For my Sweetheart 💝</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-6 transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-6 transform hover:scale-105 transition-transform duration-300">
             <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
               {generateDailyLoveMessage()}
             </div>
@@ -305,7 +305,8 @@ export default function LoveApp() {
 
             <Button 
               onClick={submitComplaint}
-              className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 transform hover:scale-105 w-full">
+              className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 transform hover:scale-105 w-full"
+            >
               Submit 💝
             </Button>
           </div>
@@ -338,6 +339,12 @@ export default function LoveApp() {
           </div>
         </div>
       );
+
+    default:
+      return <div className="text-center pt-20">Loading...</div>;
+  }
+};
+
       case 'specialday':
         // Track page access for developer monitoring
         useEffect(() => {
