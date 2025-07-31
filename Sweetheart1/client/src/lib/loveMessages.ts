@@ -88,7 +88,7 @@ const loveMessages = [
   "I didn’t find you—you found me, and changed everything. 🔍💖",
   "You’re the sky I want to watch every sunset with. 🌅💑",
   "You're not my other half—you’re the full heart I never had. 💯❤️",
-  "If my heart could write, it would only write your name. 📝💓"
+  "If my heart could write, it would only write your name. 📝💓",
  "I could spend my entire life tracing the lines of your hands and still find something new to love in every curve. ✋❤️",
   "The way your eyes look at me feels like a lifetime of love in a single glance. 👁️💘",
   "I’ve had good days and bad ones, but nothing compares to the days I spend just being near you. 🗓️💕",
@@ -234,7 +234,7 @@ const loveMessages = [
   "Your love is the kind that poets try to write and fail. 📝💔",
   "I’d rather hold your hand than hold the stars. 🌌🤝",
   "You are the rhythm that keeps my heart dancing. 💃🫀",
-  "No matter how many lifetimes I live, I’ll always look for you. ♾️❤️"
+  "No matter how many lifetimes I live, I’ll always look for you. ♾️❤️",
 "You didn’t just steal my heart—you gave it a place to grow. 🌱💓",
   "Every time you say my name, the world feels a little softer. 🌍💬",
   "Loving you feels like waking up in the middle of a dream I never want to end. 💭☀️",
@@ -314,7 +314,7 @@ const loveMessages = [
   "Your love is the reason I now believe in second chances. 🔄💖",
   "Even after all this time, you still leave me breathless. 😮‍💨❤️",
   "You’re not just my person—you’re the reason I am who I am today. 🌱💓",
-  "No poem, song, or line will ever say “I love you” better than the way I look at you. 👁️❤️"
+  "No poem, song, or line will ever say “I love you” better than the way I look at you. 👁️❤️",
 ];
 
 const reminders = [
@@ -332,7 +332,7 @@ const reminders = [
   "Your heart is full of love, and the world is lucky to have you in it. 💕🌍",
   "Remember that you are loved, cherished, and appreciated beyond measure. 🥰💖",
   "Take time to do something that makes your soul happy today. 🌸😌",
-  "You are a gift to this world, and I'm grateful for you every single day. 🎁💕"
+  "You are a gift to this world, and I'm grateful for you every single day. 🎁💕",
    "Let today be a reminder that even your smallest steps are signs of courage. 🫶",
   "You are not behind—you are exactly where your journey is meant to unfold. 🌸",
   "Drink water, stretch your body, and be kind to your mind today. 🌸",
@@ -435,7 +435,7 @@ const reminders = [
   "Celebrate how far you’ve come—quietly or boldly. 🥳",
   "You are made of resilience, wrapped in love. 🧡",
   "Speak to your soul like it’s sacred. Because it is. 💫",
-  "Today, you get to start again—with grace. 🌅"
+  "Today, you get to start again—with grace. 🌅",
 ];
 
 export function generateDailyLoveMessage(): string {
