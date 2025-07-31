@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Message App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ffe4ec;
+      transition: background 0.3s, color 0.3s;
+    }
+    .dark-mode {
+      background: #2c2c2c;
+      color: white;
+    }
+    .menu {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 200px;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      z-index: 10;
+      animation: slideIn 0.3s ease-in-out;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .sidebar.dark-mode {
+      background-color: #333;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 20px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar a span {
+      margin-left: 10px;
+    }
+    .content {
+      padding: 40px;
+      text-align: center;
+      transition: opacity 0.5s ease-in-out;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .message-box {
+      background-color: #fff0f5;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 60px auto 20px auto;
+      max-width: 600px;
+    }
+    .dark-mode .message-box {
+      background-color: #444;
+    }
+    .top-right-date {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 14px;
+    }
+    .section {
+      display: none;
+    }
+    .visible {
+      display: block;
+    }
+    .complaint-details {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .note-box {
+      margin-top: 30px;
+      font-size: 15px;
+      color: #bb4c7a;
+    }
+    .task-list {
+      margin-top: 20px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .task-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .task-item input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    #waterTimer {
+      font-weight: bold;
+      margin-top: 10px;
+      color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu" id="menuIcon" onclick="toggleSidebar()">☰</div>
+  <div class="top-right-date" id="dateDisplay"></div>
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="toggleDarkMode()">🌙<span>Night Mode</span></a>
+    <a href="#" onclick="navigate('complaint')">📝<span>Complaint Box</span></a>
+    <a href="#" onclick="navigate('reminders')">📋<span>Reminders</span></a>
+    <a href="#" onclick="navigate('mainContent')">🏠<span>Home</span></a>
+  </div>
+
+  <div class="content section" id="mainContent">
+    <h2>Daily Love Message 💖</h2>
+    <div id="greeting">For my Sweetheart 💝</div>
+    <div class="message-box" id="messageBox"></div>
+    <p id="timer"></p>
+  </div>
+
+  <div class="content section" id="complaint">
+    <h3>Submit a Complaint 💬</h3>
+    <textarea id="complaintInput" rows="4" cols="40" placeholder="Write your sweet complaint..."></textarea><br>
+    <button onclick="submitComplaint()">Submit</button>
+    <div class="complaint-details">
+      Your sweet concerns make this love even sweeter. 💌 <br>
+      Share anything you felt, missed, or wished for!
+    </div>
+    <div class="note-box">Your previous sweet notes are safely saved in your heart's vault ❤️</div>
+    <div class="message-box">
+      Here's a hug 🤗 A reminder that you're loved, heard, and cherished!
+    </div>
+  </div>
+
+  <div class="content section" id="reminders">
+    <h3>Love Reminders 📋</h3>
+    <div class="task-list">
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">Drink water 🥤</div>
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">Eat on time 🍽️</div>
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">Smile today 😊</div>
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">Tell her she looks cute 💬</div>
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">Hug me when you meet 🤗</div>
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">Hold my hand tightly 🤝</div>
+      <div class="task-item"><input type="checkbox" onclick="toggleTask(this)">You're my one and only 💕</div>
+    </div>
+    <div id="waterTimer"></...
