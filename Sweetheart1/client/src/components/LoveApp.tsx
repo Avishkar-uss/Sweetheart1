@@ -339,10 +339,6 @@ const renderContent = () => {
           </div>
         </div>
       );
-
-    default:
-      return <div className="text-center pt-20">Loading...</div>;
-  }
 };
 
       case 'specialday':
