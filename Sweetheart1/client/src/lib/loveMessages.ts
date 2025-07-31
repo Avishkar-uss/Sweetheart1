@@ -15,7 +15,7 @@ const loveMessages = [
   "Your eyes hold galaxies, your touch creates magic, your love transforms everything. ✨🌌",
   "With you, I've learned that home isn't a place, it's a feeling, and you are mine. 🏠💖",
   "You are my today, my tomorrow, my always, and my forever. 💫⏰",
-  "Your love is the melody that makes my heart sing the most beautiful song. 🎵💗"
+  "Your love is the melody that makes my heart sing the most beautiful song. 🎵💗",
   "I never believed in fate until every road led me to you. 🛣️❤️",
   "Your smile rewrites the definition of joy in my heart. 😊📝",
   "Even the stars envy the way I look at you. ✨👀",
