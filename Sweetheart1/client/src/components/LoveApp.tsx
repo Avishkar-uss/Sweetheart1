@@ -335,16 +335,22 @@ case 'tasks':
         {todayTasks.map((task, index) => (
           <li
             key={index}
-            className="p-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-between border border-gray-200 dark:border-gray-700"
+            className={`p-3 rounded-lg flex items-center justify-between ${
+              task.completed ? 'bg-green-100 opacity-70' : 'bg-pink-100'
+            }`}
           >
             <label className="flex items-center space-x-3 cursor-pointer w-full">
               <input
                 type="checkbox"
                 checked={task.completed}
                 onChange={() => toggleTaskCompletion(index)}
-                className="form-checkbox h-5 w-5 text-green-500 border-pink-300 rounded focus:ring-pink-400 transition"
+                className="form-checkbox h-5 w-5 text-green-500 rounded focus:ring-pink-300"
               />
-              <span className={`text-sm ${task.completed ? 'line-through text-gray-500' : ''}`}>
+              <span
+                className={`flex-1 text-sm ${
+                  task.completed ? 'line-through text-gray-500' : 'text-gray-800'
+                }`}
+              >
                 {task.text}
               </span>
             </label>
