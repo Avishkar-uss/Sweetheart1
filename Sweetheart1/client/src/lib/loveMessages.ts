@@ -161,7 +161,7 @@ const loveMessages = [
   "You make all my broken pieces feel like part of a beautiful mosaic. 🧩🎨",
   "You’re the chapter my heart had been waiting for. 📖❤️",
   "The stars look different now—because one of them walked into my life. ✨🚶‍♀️",
-  "I love you more than yesterday, less than tomorrow, and not even close to forever. 🕰️❤️♾️"
+  "I love you more than yesterday, less than tomorrow, and not even close to forever. 🕰️❤️♾️",
 "I could search the universe and never find another heart that fits mine like yours. 💫",
   "Your laughter is the melody my soul plays on repeat. 🎶",
   "You walked into my life and turned every ordinary moment into magic. ✨",
