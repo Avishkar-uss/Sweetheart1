@@ -396,7 +396,7 @@ case 'tasks':
                       {/* More hearts from different positions */}
                       {['💖', '💕', '💝'].map((heart, index) => (
                         <div 
-                          key={heart2-${index}}
+                          key={`heart-${index}`}
                           className="absolute animate-heart-float text-3xl"
                           style={{
                             right: ${35 + index * 8}%,
