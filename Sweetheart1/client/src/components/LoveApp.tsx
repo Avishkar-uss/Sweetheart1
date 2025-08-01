@@ -118,8 +118,12 @@ export default function LoveApp() {
   const today = getTodayString();
   const todayHugs = hugCounter[today] || 0;
   const todayTasks = dailyTasksData[today] || [];
-
-  // Initialize daily tasks if not present
+  useEffect(() => {
+  if (window.innerWidth >= 768) {
+    setSidebarOpen(true);
+  }
+}, 
+ // Initialize daily tasks if not present
   useEffect(() => {
     if (!dailyTasksData[today]) {
       const shuffled = [...dailyTasks].sort(() => 0.5 - Math.random());
@@ -626,7 +630,7 @@ case 'tasks':
 
 return (
   <div
-    className="relative min-h-screen font-['Segoe_UI'] transition-all duration-300"
+    className="relative min-h-screen font-['Segoe_UI'] overflow-x-hidden transition-all duration-300"
     style={{
       backgroundImage: isDarkMode
         ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 20%, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 15%, 0.4) 0%, transparent 50%)'
