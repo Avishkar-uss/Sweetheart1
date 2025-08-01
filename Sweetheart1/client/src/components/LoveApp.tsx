@@ -116,42 +116,49 @@ export default function LoveApp() {
   });
 
   const today = getTodayString();
-  const todayHugs = hugCounter[today] || 0;
-  const todayTasks = dailyTasksData[today] || [];
-  useEffect(() => {
+const todayHugs = hugCounter[today] || 0;
+const todayTasks = dailyTasksData[today] || [];
+
+// Open sidebar on desktop
+useEffect(() => {
   if (window.innerWidth >= 768) {
     setSidebarOpen(true);
   }
-}, 
- // Initialize daily tasks if not present
-  useEffect(() => {
-    if (!dailyTasksData[today]) {
-      const shuffled = [...dailyTasks].sort(() => 0.5 - Math.random());
-      const selectedTasks = shuffled.slice(0, 5);
-      setDailyTasksData((prev: Record<string, Task[]>) => ({ ...prev, [today]: selectedTasks }));
-    }
-      }, [today, setDailyTasksData] )
+}, []); 
 
-  // Handle navigation from URL
-  useEffect(() => {
-    const section = location.slice(1) as Section;
-    if (['home', 'complaint', 'tasks', 'hugs', 'reminders', 'specialday'].includes(section)) {
-      setCurrentSection(section);
-    } else {
-      setCurrentSection('home');
-    }
-  }, [location]);
+// Initialize daily tasks if not present
+useEffect(() => {
+  if (!dailyTasksData[today]) {
+    const shuffled = [...dailyTasks].sort(() => 0.5 - Math.random());
+    const selectedTasks = shuffled.slice(0, 5);
+    setDailyTasksData((prev: Record<string, Task[]>) => ({
+      ...prev,
+      [today]: selectedTasks,
+    }));
+  }
+}, [today, setDailyTasksData]); 
 
-  // Timer for next message
-  useEffect(() => {
-    const updateTimer = () => {
-      setNextMessageTimer(formatTimeUntilMidnight());
-    };
-    
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-  }, []);
+// Handle navigation from URL
+useEffect(() => {
+  const section = location.slice(1) as Section;
+  if (['home', 'complaint', 'tasks', 'hugs', 'reminders', 'specialday'].includes(section)) {
+    setCurrentSection(section);
+  } else {
+    setCurrentSection('home');
+  }
+}, [location]);
+
+// Timer for next message
+useEffect(() => {
+  const updateTimer = () => {
+    setNextMessageTimer(formatTimeUntilMidnight());
+  };
+
+  updateTimer();
+  const interval = setInterval(updateTimer, 1000);
+  return () => clearInterval(interval);
+}, []);
+
 
   // Dark mode effect
   useEffect(() => {
