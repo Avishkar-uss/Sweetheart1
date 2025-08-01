@@ -279,9 +279,7 @@ useEffect(() => {
     });
   };
 
-const renderContent = () => {
-  switch (currentSection) {
-  case 'home':
+case 'home':
   return (
     <div className="relative min-h-screen pt-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 content-transition animate-fade-in">
 
@@ -305,7 +303,7 @@ const renderContent = () => {
       </div>
 
       {/* 💖 Main Card */}
-      <div className="relative z-10 max-w-3xl mx-auto text-center bg-white/70 dark:bg-gray-800/50 backdrop-blur-2xl rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] p-10 border border-white/30 dark:border-gray-700">
+      <div className="relative z-10 max-w-3xl mx-auto text-center bg-white/70 dark:bg-gray-800/50 backdrop-blur-2xl rounded-[2rem] shadow-xl p-10 border border-white/30 dark:border-gray-700">
 
         {/* Header */}
         <div className="mb-10">
@@ -317,12 +315,12 @@ const renderContent = () => {
           </p>
         </div>
 
-        {/* Message Card */}
-        <div className="bg-white/90 dark:bg-gray-900/70 border border-pink-200 dark:border-pink-700 rounded-2xl shadow-xl p-8 mb-8 transform hover:scale-[1.01] transition-transform duration-300">
+        {/* Message Card (💌 main fix here) */}
+        <div className="bg-white dark:bg-gray-900 border border-pink-300 dark:border-pink-700 rounded-2xl shadow-lg p-8 mb-8 max-w-2xl mx-auto">
           <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-100 leading-relaxed mb-4 font-medium">
             {generateDailyLoveMessage()}
           </p>
-          <p className="text-sm romantic-text text-gray-600 dark:text-gray-300 italic">
+          <p className="text-sm italic text-gray-600 dark:text-gray-300">
             💌 A new message awaits you tomorrow
           </p>
         </div>
