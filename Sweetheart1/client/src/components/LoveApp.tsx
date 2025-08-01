@@ -279,6 +279,8 @@ useEffect(() => {
     });
   };
 
+  const renderContent = () => {
+  switch (currentSection) {
 case 'home':
   return (
     <div className="relative min-h-screen pt-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 content-transition animate-fade-in">
