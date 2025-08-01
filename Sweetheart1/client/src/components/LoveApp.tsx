@@ -270,21 +270,44 @@ export default function LoveApp() {
 
 const renderContent = () => {
   switch (currentSection) {
-   case 'home':
+  case 'home':
   return (
-    <div className="min-h-screen pt-36 px-4 sm:px-0 bg-gradient-to-br from-pink-100 via-rose-200 to-pink-300 content-transition animate-fade-in">
-      <div className="max-w-2xl mx-auto text-center backdrop-blur-md bg-white/60 dark:bg-gray-800/60 rounded-3xl shadow-2xl p-10 border border-white/30">
+    <div className="relative min-h-screen pt-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 content-transition animate-fade-in">
 
+      {/* ✨ Floating hearts background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-pink-400 opacity-20 animate-floating-heart"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              fontSize: `${Math.random() * 20 + 16}px`,
+              animationDuration: `${Math.random() * 10 + 5}s`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          >
+            ❤️
+          </div>
+        ))}
+      </div>
+
+      {/* 💖 Main Card */}
+      <div className="relative z-10 max-w-3xl mx-auto text-center bg-white/70 dark:bg-gray-800/50 backdrop-blur-2xl rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] p-10 border border-white/30 dark:border-gray-700">
+
+        {/* Header */}
         <div className="mb-10">
-          <h1 className="text-5xl sm:text-6xl font-bold romantic-accent text-gray-800 dark:text-white animate-pulse-love drop-shadow-md">
+          <h1 className="text-5xl sm:text-6xl font-bold romantic-accent text-gray-900 dark:text-white animate-pulse-love drop-shadow-sm tracking-tight">
             Daily Love Message <span className="animate-bounce">💖</span>
           </h1>
-          <p className="text-2xl sm:text-3xl romantic-text text-pink-700 dark:text-pink-300 mt-4 italic">
+          <p className="text-2xl sm:text-3xl romantic-text text-pink-700 dark:text-pink-300 mt-3 italic font-light">
             For my Sweetheart <span className="animate-pulse">💝</span>
           </p>
         </div>
 
-        <div className="bg-white/80 dark:bg-gray-900/70 rounded-3xl shadow-lg p-8 mb-8 transform hover:scale-105 transition-transform duration-300 border border-pink-200">
+        {/* Message Card */}
+        <div className="bg-white/90 dark:bg-gray-900/70 border border-pink-200 dark:border-pink-700 rounded-2xl shadow-xl p-8 mb-8 transform hover:scale-[1.01] transition-transform duration-300">
           <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-100 leading-relaxed mb-4 font-medium">
             {generateDailyLoveMessage()}
           </p>
@@ -293,18 +316,19 @@ const renderContent = () => {
           </p>
         </div>
 
-        <div className="bg-white/80 dark:bg-gray-900/60 rounded-xl shadow-lg px-6 py-4 inline-block border border-pink-200">
+        {/* Timer Box */}
+        <div className="bg-white/90 dark:bg-gray-800/60 rounded-xl shadow-lg px-6 py-4 inline-block border border-pink-100 dark:border-pink-900">
           <div className="text-sm text-gray-500 dark:text-gray-300 mb-1 font-medium">
             Next love message in:
           </div>
-          <div className="text-2xl sm:text-3xl font-semibold romantic-accent tracking-wider text-gray-900 dark:text-white">
+          <div className="text-2xl sm:text-3xl font-semibold romantic-accent tracking-wide text-gray-900 dark:text-white">
             {nextMessageTimer}
           </div>
         </div>
-
       </div>
     </div>
-  ); 
+  );
+
 
     case 'complaint':
       return (
