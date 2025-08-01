@@ -696,3 +696,4 @@ case 'tasks':
     </div>
   </div>
 );
+}
