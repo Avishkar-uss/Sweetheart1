@@ -130,7 +130,7 @@ export default function LoveApp() {
       const selectedTasks = shuffled.slice(0, 5);
       setDailyTasksData((prev: Record<string, Task[]>) => ({ ...prev, [today]: selectedTasks }));
     }
-      }, [today, setDailyTasksData]);
+      }, [today, setDailyTasksData])
 
   // Handle navigation from URL
   useEffect(() => {
