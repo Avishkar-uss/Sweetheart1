@@ -1,90 +1,71 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
-export default {
-  darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+const config: Config = {
+  darkMode: "class", // enables dark mode via a CSS class
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./shared/**/*.{ts,tsx}", // if you have shared components
+  ],
   theme: {
     extend: {
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
+        romantic: {
+          light: "#ffe4ec",
+          DEFAULT: "#ffb6c1",
+          dark: "#ff69b4",
         },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
+        rose: {
+          100: "#ffeef3",
+          200: "#ffd7e5",
+          300: "#fbb1c6",
         },
-        primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-        },
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        chart: {
-          "1": "var(--chart-1)",
-          "2": "var(--chart-2)",
-          "3": "var(--chart-3)",
-          "4": "var(--chart-4)",
-          "5": "var(--chart-5)",
-        },
-        sidebar: {
-          DEFAULT: "var(--sidebar-background)",
-          foreground: "var(--sidebar-foreground)",
-          primary: "var(--sidebar-primary)",
-          "primary-foreground": "var(--sidebar-primary-foreground)",
-          accent: "var(--sidebar-accent)",
-          "accent-foreground": "var(--sidebar-accent-foreground)",
-          border: "var(--sidebar-border)",
-          ring: "var(--sidebar-ring)",
-        },
+        darkPink: "#7a2a52",
       },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
+      fontFamily: {
+        romantic: ["'Quicksand'", "sans-serif"],
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fadeIn 1s ease-out",
+        "pulse-love": "pulseLove 2s infinite",
+        "bounce-huge": "bounceHuge 1s ease-in-out infinite",
+        "heart-float": "heartFloat 3s ease-in-out infinite",
+        "hug-explosion": "hugExplosion 0.6s ease-out",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        pulseLove: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
+        },
+        bounceHuge: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-30px)" },
+        },
+        heartFloat: {
+          "0%": { transform: "translateY(0)", opacity: 1 },
+          "100%": { transform: "translateY(-80px)", opacity: 0 },
+        },
+        hugExplosion: {
+          "0%": { transform: "scale(0.5)", opacity: 0.7 },
+          "100%": { transform: "scale(2)", opacity: 0 },
+        },
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config;
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    plugin(function ({ addVariant }) {
+      addVariant("child", "& > *");
+      addVariant("child-hover", "& > *:hover");
+    }),
+  ],
+};
+
+export default config;
+
