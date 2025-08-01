@@ -60,11 +60,6 @@
   --romantic-text: hsl(330, 50%, 75%);
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
   body {
     @apply font-sans antialiased text-foreground;
     font-family: 'Segoe UI', sans-serif;
