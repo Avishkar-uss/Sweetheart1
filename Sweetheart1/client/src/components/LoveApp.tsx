@@ -676,7 +676,7 @@ return (
         <button
           key={item.key}
           onClick={() => navigateToSection(item.key as Section)}
-          className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
+          className="flex flex row items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
         >
           <span>{item.emoji}</span><span>{item.label}</span>
         </button>
