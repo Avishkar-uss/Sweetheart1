@@ -349,7 +349,7 @@ case 'tasks':
               <input
                 type="checkbox"
                 checked={task.completed}
-                onChange={() => toggleTaskCompletion(index)}
+                onChange={() => toggleTask(index)} 
                 className="form-checkbox h-5 w-5 text-green-500 rounded focus:ring-pink-300"
               />
               <span
@@ -365,6 +365,7 @@ case 'tasks':
       </ul>
     </div>
   );
+
 
     case 'hugs':
   return (
