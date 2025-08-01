@@ -624,87 +624,75 @@ case 'tasks':
     }
   };
 
-  return (
-    <div 
-      className="font-['Segoe_UI'] min-h-screen transition-all duration-300" 
-      style={{ 
-        backgroundColor: isDarkMode ? 'hsl(340, 80%, 8%)' : 'hsl(338, 90%, 85%)',
-        background: isDarkMode 
-          ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%)' 
-          : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%)',
-        backgroundImage: isDarkMode
-          ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 20%, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 15%, 0.4) 0%, transparent 50%)'
-          : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
-      }}
+ return (
+  <div className="relative min-h-screen font-['Segoe_UI'] transition-all duration-300"
+    style={{
+      backgroundColor: isDarkMode ? 'hsl(340, 80%, 8%)' : 'hsl(338, 90%, 85%)',
+      background: isDarkMode
+        ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%)'
+        : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%)',
+      backgroundImage: isDarkMode
+        ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 20%, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 15%, 0.4) 0%, transparent 50%)'
+        : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
+    }}
+  >
+    {/* Hamburger Menu */}
+    <div
+      className="fixed top-4 left-4 z-50 cursor-pointer text-2xl hover:scale-110 transition-transform duration-200"
+      onClick={toggleSidebar}
     >
-      {/* Hamburger Menu Icon */}
-      <div 
-        className="fixed top-4 left-4 z-50 cursor-pointer text-2xl hover:scale-110 transition-transform duration-200" 
-        onClick={toggleSidebar}
-      >
-        <span className="romantic-accent">☰</span>
-      </div>
-
-      {/* Date Display */}
-      <div className="fixed top-4 right-4 z-40 text-sm text-gray-600 dark:text-gray-400">
-        {getCurrentDate()}
-      </div>
-
-      {/* Sidebar */}
-     <div className={`fixed top-0 left-0 h-full max-w-[80%] w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} sidebar-transition z-40`}>
-
-        <div className="p-6 mt-16">
-          <nav className="space-y-4">
-            <button onClick={() => navigateToSection('home')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-              <span>🏠</span>
-              <span>Home</span>
-            </button>
-            <button onClick={() => navigateToSection('complaint')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-              <span>📝</span>
-              <span>Complaint Box</span>
-            </button>
-            <button onClick={() => navigateToSection('tasks')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-              <span>✅</span>
-              <span>Tasks</span>
-            </button>
-            <button onClick={() => navigateToSection('hugs')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-              <span>🤗</span>
-              <span>Hugs</span>
-            </button>
-            <button onClick={() => navigateToSection('reminders')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-              <span>📋</span>
-              <span>Reminders</span>
-            </button>
-
-            {isAugust1st() && (
-              <button onClick={() => navigateToSection('specialday')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-                <span>💖</span>
-                <span>Special Day</span>
-              </button>
-            )}
-            <hr className="border-gray-300 dark:border-gray-600" />
-            <button onClick={toggleDarkMode} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
-              <span>{isDarkMode ? '☀️' : '🌙'}</span>
-              <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-            </button>
-          </nav>
-        </div>
-      </div>
-
-      {/* Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-30" 
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Main Content */}
-      <div className="transition-all duration-300">
-        {renderContent()}
-      </div>
-
-
+      <span className="romantic-accent">☰</span>
     </div>
-  );
-}
+
+    {/* Date Display */}
+    <div className="fixed top-4 right-4 z-40 text-sm text-gray-600 dark:text-gray-400">
+      {getCurrentDate()}
+    </div>
+
+    {/* Sidebar */}
+    <div className={`fixed top-0 left-0 h-full max-w-[80%] w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-40`}>
+      <div className="p-6 mt-16">
+        <nav className="space-y-4">
+          <button onClick={() => navigateToSection('home')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+            <span>🏠</span><span>Home</span>
+          </button>
+          <button onClick={() => navigateToSection('complaint')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+            <span>📝</span><span>Complaint Box</span>
+          </button>
+          <button onClick={() => navigateToSection('tasks')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+            <span>✅</span><span>Tasks</span>
+          </button>
+          <button onClick={() => navigateToSection('hugs')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+            <span>🤗</span><span>Hugs</span>
+          </button>
+          <button onClick={() => navigateToSection('reminders')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+            <span>📋</span><span>Reminders</span>
+          </button>
+          {isAugust1st() && (
+            <button onClick={() => navigateToSection('specialday')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+              <span>💖</span><span>Special Day</span>
+            </button>
+          )}
+          <hr className="border-gray-300 dark:border-gray-600" />
+          <button onClick={toggleDarkMode} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
+            <span>{isDarkMode ? '☀️' : '🌙'}</span>
+            <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    {/* Sidebar Overlay */}
+    {sidebarOpen && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-30"
+        onClick={() => setSidebarOpen(false)}
+      />
+    )}
+
+    {/* Main Content */}
+    <div className="transition-all duration-300 px-4 pt-20 pb-10">
+      {renderContent()}
+    </div>
+  </div>
+);
