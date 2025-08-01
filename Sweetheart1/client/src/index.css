@@ -52,8 +52,8 @@
   --destructive-foreground: hsl(0, 0%, 98%);
   --ring: hsl(240, 4.9%, 83.9%);
   --radius: 0.5rem;
-  
-  /* Dark mode romantic colors */
+
+  /* Romantic dark theme custom variables */
   --romantic-pink: hsl(340, 30%, 15%);
   --romantic-accent: hsl(340, 75%, 65%);
   --romantic-light: hsl(340, 20%, 22%);
@@ -68,7 +68,11 @@
   body {
     @apply font-sans antialiased text-foreground;
     font-family: 'Segoe UI', sans-serif;
-    background-color: hsl(var(--romantic-pink)) !important;
+
+    /* Light and dark mode support */
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
