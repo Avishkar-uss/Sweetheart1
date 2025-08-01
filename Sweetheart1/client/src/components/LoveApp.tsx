@@ -624,13 +624,10 @@ case 'tasks':
     }
   };
 
- return (
-  <div className="relative min-h-screen font-['Segoe_UI'] transition-all duration-300"
+return (
+  <div
+    className="relative min-h-screen font-['Segoe_UI'] transition-all duration-300"
     style={{
-      backgroundColor: isDarkMode ? 'hsl(340, 80%, 8%)' : 'hsl(338, 90%, 85%)',
-      background: isDarkMode
-        ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%)'
-        : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%)',
       backgroundImage: isDarkMode
         ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 20%, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 15%, 0.4) 0%, transparent 50%)'
         : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
@@ -650,7 +647,7 @@ case 'tasks':
     </div>
 
     {/* Sidebar */}
-    <div className={`fixed top-0 left-0 h-full max-w-[80%] w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-40`}>
+    <div className={`fixed top-0 left-0 h-full w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-40`}>
       <div className="p-6 mt-16">
         <nav className="space-y-4">
           <button onClick={() => navigateToSection('home')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
@@ -690,8 +687,8 @@ case 'tasks':
       />
     )}
 
-    {/* Main Content */}
-    <div className="transition-all duration-300 px-4 pt-20 pb-10">
+    {/* Main Content (your renderContent) */}
+    <div className="pt-28 pb-10 px-4 sm:px-6">
       {renderContent()}
     </div>
   </div>
