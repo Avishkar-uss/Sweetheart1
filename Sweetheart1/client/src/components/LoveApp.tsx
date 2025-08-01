@@ -270,37 +270,41 @@ export default function LoveApp() {
 
 const renderContent = () => {
   switch (currentSection) {
-    case 'home':
-      return (
-       <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in pt-36 px-4 sm:px-0">
-  <div className="mb-10">
-    <h1 className="text-5xl sm:text-6xl font-bold romantic-accent mb-3 text-gray-800 animate-pulse-love drop-shadow-lg">
-      Daily Love Message <span>💖</span>
-    </h1>
-    <p className="text-2xl sm:text-3xl romantic-text text-pink-700 mb-6">
-      For my Sweetheart <span>💝</span>
-    </p>
-  </div>
+   case 'home':
+  return (
+    <div className="min-h-screen pt-36 px-4 sm:px-0 bg-gradient-to-br from-pink-100 via-rose-200 to-pink-300 content-transition animate-fade-in">
+      <div className="max-w-2xl mx-auto text-center backdrop-blur-md bg-white/60 dark:bg-gray-800/60 rounded-3xl shadow-2xl p-10 border border-white/30">
 
-  <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-10 mb-8 transform hover:scale-105 transition-transform duration-300">
-    <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed mb-4 font-medium">
-      {generateDailyLoveMessage()}
-    </p>
-    <p className="text-sm romantic-text text-gray-500 dark:text-gray-400 italic">
-      💌 A new message awaits you tomorrow
-    </p>
-  </div>
+        <div className="mb-10">
+          <h1 className="text-5xl sm:text-6xl font-bold romantic-accent text-gray-800 dark:text-white animate-pulse-love drop-shadow-md">
+            Daily Love Message <span className="animate-bounce">💖</span>
+          </h1>
+          <p className="text-2xl sm:text-3xl romantic-text text-pink-700 dark:text-pink-300 mt-4 italic">
+            For my Sweetheart <span className="animate-pulse">💝</span>
+          </p>
+        </div>
 
-  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg px-6 py-4 inline-block">
-    <div className="text-sm text-gray-500 dark:text-gray-400 mb-1 font-medium">
-      Next love message in:
+        <div className="bg-white/80 dark:bg-gray-900/70 rounded-3xl shadow-lg p-8 mb-8 transform hover:scale-105 transition-transform duration-300 border border-pink-200">
+          <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-100 leading-relaxed mb-4 font-medium">
+            {generateDailyLoveMessage()}
+          </p>
+          <p className="text-sm romantic-text text-gray-600 dark:text-gray-300 italic">
+            💌 A new message awaits you tomorrow
+          </p>
+        </div>
+
+        <div className="bg-white/80 dark:bg-gray-900/60 rounded-xl shadow-lg px-6 py-4 inline-block border border-pink-200">
+          <div className="text-sm text-gray-500 dark:text-gray-300 mb-1 font-medium">
+            Next love message in:
+          </div>
+          <div className="text-2xl sm:text-3xl font-semibold romantic-accent tracking-wider text-gray-900 dark:text-white">
+            {nextMessageTimer}
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div className="text-2xl sm:text-3xl font-semibold romantic-accent tracking-wider text-gray-900 dark:text-white">
-      {nextMessageTimer}
-    </div>
-  </div>
-</div>
- );       
+  ); 
 
     case 'complaint':
       return (
@@ -335,34 +339,38 @@ const renderContent = () => {
       );
 case 'tasks':
   return (
-    <div className="pt-20 max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold romantic-accent mb-6 text-center">Love Tasks ✅</h2>
-      <ul className="space-y-3">
-        {todayTasks.map((task, index) => (
-          <li
-            key={index}
-            className={`p-3 rounded-lg flex items-center justify-between ${
-              task.completed ? 'bg-green-100 opacity-70' : 'bg-pink-100'
-            }`}
-          >
-            <label className="flex items-center space-x-3 cursor-pointer w-full">
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleTask(index)} 
-                className="form-checkbox h-5 w-5 text-green-500 rounded focus:ring-pink-300"
-              />
-              <span
-                className={`flex-1 text-sm ${
-                  task.completed ? 'line-through text-gray-500' : 'text-gray-800'
-                }`}
-              >
-                {task.text}
-              </span>
-            </label>
-          </li>
-        ))}
-      </ul>
+    <div className="pt-24 min-h-screen bg-gradient-to-br from-pink-100 via-rose-200 to-pink-300 px-4">
+      <div className="max-w-2xl mx-auto backdrop-blur-md bg-white/60 dark:bg-gray-800/60 rounded-3xl shadow-xl p-8 border border-white/30">
+        <h2 className="text-4xl font-bold romantic-accent mb-6 text-center animate-pulse-love">Love Tasks 💗</h2>
+        <p className="text-center text-gray-700 dark:text-gray-300 mb-8 italic">A few sweet things to brighten your day 🌷</p>
+        <ul className="space-y-4">
+          {todayTasks.map((task, index) => (
+            <li
+              key={index}
+              className={`p-4 rounded-xl flex items-center justify-between transition-all duration-300 shadow-sm ${
+                task.completed ? 'bg-green-100/80 backdrop-blur-sm' : 'bg-white/70 hover:bg-pink-50'
+              }`}
+            >
+              <label className="flex items-center space-x-4 w-full cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleTask(index)}
+                  className="h-5 w-5 accent-pink-500 transition-all duration-200"
+                />
+                <span
+                  className={`flex-1 text-lg font-medium ${
+                    task.completed ? 'line-through text-gray-500' : 'text-gray-800'
+                  }`}
+                >
+                  {task.text}
+                </span>
+                {task.completed && <span className="text-green-600 text-xl">✅</span>}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 
