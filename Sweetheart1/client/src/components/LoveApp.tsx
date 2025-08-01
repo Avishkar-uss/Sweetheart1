@@ -635,6 +635,9 @@ case 'tasks':
     }
   };
 
+const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
+const sidebarVisible = isDesktop || sidebarOpen;
+
 return (
   <div
     className="relative min-h-screen font-['Segoe_UI'] overflow-x-hidden transition-all duration-300"
