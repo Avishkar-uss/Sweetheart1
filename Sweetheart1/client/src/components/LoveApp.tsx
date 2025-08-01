@@ -566,11 +566,11 @@ case 'tasks':
                         </div>
                         <div className="flex items-center">
                           <span className="text-2xl mr-3">🍰</span>
-                          <span>Your favorite treat just because</span>
+                          <span>A beautiful future of us</span>
                         </div>
                         <div className="flex items-center">
                           <span className="text-2xl mr-3">💝</span>
-                          <span>Surprise gifts throughout the day</span>
+                          <span>A sweet forhead kiss</span>
                         </div>
                         <div className="flex items-center">
                           <span className="text-2xl mr-3">🌙</span>
