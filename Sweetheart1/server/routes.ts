@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { db } from "../db"; // Adjust if needed
-import { complaints, tasks, hugs } from "../../shared/schema"; // Adjust path if schema is elsewhere
+import { db } from "./db"; // ✅ db.ts is in same folder
+import { complaints, tasks, hugs } from "../shared/schema"; // ✅ shared is one level above
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Fetch complaints
@@ -37,7 +37,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Return the server instance
   const httpServer = createServer(app);
   return httpServer;
 }
+
