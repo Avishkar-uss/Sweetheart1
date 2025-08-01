@@ -272,29 +272,35 @@ const renderContent = () => {
   switch (currentSection) {
     case 'home':
       return (
-        <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in pt-36">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold romantic-accent mb-4 animate-pulse-love">Daily Love Message 💖</h1>
-            <p className="text-xl romantic-text mb-8">For my Sweetheart 💝</p>
-          </div>
+       <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in pt-36 px-4 sm:px-0">
+  <div className="mb-10">
+    <h1 className="text-5xl sm:text-6xl font-bold romantic-accent mb-3 text-gray-800 animate-pulse-love drop-shadow-lg">
+      Daily Love Message <span>💖</span>
+    </h1>
+    <p className="text-2xl sm:text-3xl romantic-text text-pink-700 mb-6">
+      For my Sweetheart <span>💝</span>
+    </p>
+  </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-6 transform hover:scale-105 transition-transform duration-300">
-            <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
-              {generateDailyLoveMessage()}
-            </div>
-            <div className="text-sm romantic-text">
-              💌 A new message awaits you tomorrow
-            </div>
-          </div>
+  <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-10 mb-8 transform hover:scale-105 transition-transform duration-300">
+    <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed mb-4 font-medium">
+      {generateDailyLoveMessage()}
+    </p>
+    <p className="text-sm romantic-text text-gray-500 dark:text-gray-400 italic">
+      💌 A new message awaits you tomorrow
+    </p>
+  </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 inline-block">
-            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Next love message in:</div>
-            <div className="text-lg font-bold romantic-accent">
-              {nextMessageTimer}
-            </div>
-          </div>
-        </div>
-      );
+  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg px-6 py-4 inline-block">
+    <div className="text-sm text-gray-500 dark:text-gray-400 mb-1 font-medium">
+      Next love message in:
+    </div>
+    <div className="text-2xl sm:text-3xl font-semibold romantic-accent tracking-wider text-gray-900 dark:text-white">
+      {nextMessageTimer}
+    </div>
+  </div>
+</div>
+ );       
 
     case 'complaint':
       return (
