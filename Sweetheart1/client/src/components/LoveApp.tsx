@@ -657,40 +657,48 @@ return (
       {getCurrentDate()}
     </div>
 
-    {/* 📋 Sidebar */}
-    <div className={`fixed top-0 left-0 h-full w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-40`}>
-      <div className="p-6 mt-16">
-        <nav className="space-y-4">
-          {[
-            { label: 'Home', emoji: '🏠', key: 'home' },
-            { label: 'Complaint Box', emoji: '📝', key: 'complaint' },
-            { label: 'Tasks', emoji: '✅', key: 'tasks' },
-            { label: 'Hugs', emoji: '🤗', key: 'hugs' },
-            { label: 'Reminders', emoji: '📋', key: 'reminders' },
-          ].map(item => (
-            <button
-              key={item.key}
-              onClick={() => navigateToSection(item.key)}
-              className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
-            >
-              <span>{item.emoji}</span><span>{item.label}</span>
-            </button>
-          ))}
+   {/* 📋 Sidebar */}
+<div className={`fixed top-0 left-0 h-full w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${
+  sidebarVisible ? 'translate-x-0' : '-translate-x-full'
+} transition-transform duration-300 z-40`}>
+  <div className="p-6 mt-16">
+    <nav className="space-y-4">
+      {[
+        { label: 'Home', emoji: '🏠', key: 'home' },
+        { label: 'Complaint Box', emoji: '📝', key: 'complaint' },
+        { label: 'Tasks', emoji: '✅', key: 'tasks' },
+        { label: 'Hugs', emoji: '🤗', key: 'hugs' },
+        { label: 'Reminders', emoji: '📋', key: 'reminders' },
+      ].map(item => (
+        <button
+          key={item.key}
+          onClick={() => navigateToSection(item.key as Section)}
+          className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
+        >
+          <span>{item.emoji}</span><span>{item.label}</span>
+        </button>
+      ))}
 
-          {isAugust1st() && (
-            <button onClick={() => navigateToSection('specialday')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-              <span>💖</span><span>Special Day</span>
-            </button>
-          )}
+      {isAugust1st() && (
+        <button
+          onClick={() => navigateToSection('specialday')}
+          className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
+        >
+          <span>💖</span><span>Special Day</span>
+        </button>
+      )}
 
-          <hr className="border-gray-300 dark:border-gray-600" />
-          <button onClick={toggleDarkMode} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>{isDarkMode ? '☀️' : '🌙'}</span>
-            <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-          </button>
-        </nav>
-      </div>
-    </div>
+      <hr className="border-gray-300 dark:border-gray-600" />
+      <button
+        onClick={toggleDarkMode}
+        className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
+      >
+        <span>{isDarkMode ? '☀️' : '🌙'}</span>
+        <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+      </button>
+    </nav>
+  </div>
+</div>
 
     {/* 🧊 Sidebar Overlay */}
     {sidebarOpen && (
@@ -700,10 +708,10 @@ return (
       />
     )}
 
-    {/* 🧠 Main Content Wrapper */}
-    <main className="pt-24 pb-10 px-4 sm:px-6 transition-all duration-300">
-      {renderContent()}
-    </main>
+   {/* 🧠 Main Content Wrapper */}
+<main className={`pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 ${sidebarVisible ? 'ml-64' : ''}`}>
+  {renderContent()}
+</main>
   </div>
 );
 }
