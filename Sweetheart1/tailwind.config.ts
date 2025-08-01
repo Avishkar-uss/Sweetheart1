@@ -6,7 +6,32 @@ const config: Config = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./shared/**/*.{ts,tsx}", // if you have shared components
+    "./shared/**/*.{ts,tsx}",
+  ],
+  safelist: [
+    // Sidebar layout
+    'flex', 'flex-col', 'space-y-4', 'items-center', 'gap-3', 'px-4', 'py-2',
+    'rounded-lg', 'hover:bg-pink-100', 'dark:hover:bg-pink-700',
+    'text-gray-700', 'dark:text-gray-300', 'w-full', 'transition-all',
+    
+    // Message box and background
+    'bg-white/70', 'dark:bg-gray-800/50', 'backdrop-blur-2xl', 'rounded-3xl',
+    'shadow-lg', 'border', 'border-white/30', 'dark:border-gray-700',
+    
+    // Inner love message box
+    'bg-white/90', 'dark:bg-gray-900/70', 'border-pink-200', 'dark:border-pink-700',
+    'rounded-2xl', 'shadow-xl', 'p-8', 'text-xl', 'sm:text-2xl',
+    
+    // Countdown timer
+    'bg-white/90', 'dark:bg-gray-800/60', 'rounded-xl', 'shadow-lg',
+    'px-6', 'py-4', 'inline-block', 'border-pink-100', 'dark:border-pink-900',
+    
+    // Text color fallbacks
+    'text-gray-900', 'text-gray-800', 'text-gray-600', 'text-pink-700',
+    'text-gray-100', 'text-gray-300', 'text-white', 'dark:text-white',
+
+    // Animations
+    'animate-pulse-love', 'animate-fade-in', 'animate-floating-heart'
   ],
   theme: {
     extend: {
@@ -68,4 +93,5 @@ const config: Config = {
 };
 
 export default config;
+
 
