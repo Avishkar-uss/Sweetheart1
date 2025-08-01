@@ -651,7 +651,8 @@ case 'tasks':
       </div>
 
       {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} sidebar-transition z-40`}>
+     <div className={`fixed top-0 left-0 h-full max-w-[80%] w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} sidebar-transition z-40`}>
+
         <div className="p-6 mt-16">
           <nav className="space-y-4">
             <button onClick={() => navigateToSection('home')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 transition-colors duration-200 w-full text-left">
