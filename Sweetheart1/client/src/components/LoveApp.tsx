@@ -375,33 +375,36 @@ case 'tasks':
   );
 
 
-    case 'hugs':
+   case 'hugs':
   return (
-    <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold romantic-accent mb-4">Virtual Hugs 🤗</h2>
-        <p className="romantic-text">Sending love when we miss each other</p>
+    <div className="max-w-4xl mx-auto content-transition animate-fade-in pt-24 px-4 sm:px-6">
+      <div className="text-center mb-10">
+        <h2 className="text-4xl sm:text-5xl font-bold romantic-accent mb-4 animate-pulse-love drop-shadow-md">
+          Virtual Hugs <span>🤗</span>
+        </h2>
+        <p className="romantic-text text-pink-700 dark:text-pink-300 text-lg sm:text-xl">
+          Sending warmth and love from afar, one hug at a time 💞
+        </p>
       </div>
 
-      <div className="romantic-light-bg rounded-xl shadow-lg p-8 text-center relative">
-        {/* Spectacular Hug Animation Overlay */}
+      <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 text-center relative border border-pink-200 dark:border-pink-700 transition-transform hover:scale-[1.01] duration-300">
+        {/* Hug Animation Overlay */}
         {hugAnimation.show && (
           <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-            {/* Main bouncing emoji */}
             <div className="text-8xl animate-bounce-huge" key={hugAnimation.id}>
               {hugAnimation.emoji}
             </div>
-            
-            {/* Explosion effect */}
+
+            {/* Explosion */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div className="text-6xl opacity-40 animate-hug-explosion">{hugAnimation.emoji}</div>
             </div>
-            
+
             {/* Floating hearts */}
             {hugAnimation.hearts && (
               <>
                 {['💖', '💕', '💝', '❤️', '💗'].map((heart, index) => (
-                  <div 
+                  <div
                     key={`${heart}-${index}`}
                     className="absolute animate-heart-float text-4xl"
                     style={{
@@ -413,10 +416,8 @@ case 'tasks':
                     {heart}
                   </div>
                 ))}
-                
-                {/* More hearts from different positions */}
                 {['💖', '💕', '💝'].map((heart, index) => (
-                  <div 
+                  <div
                     key={`heart-right-${index}`}
                     className="absolute animate-heart-float text-3xl"
                     style={{
@@ -430,10 +431,10 @@ case 'tasks':
                 ))}
               </>
             )}
-            
-            {/* Sparkle effects */}
+
+            {/* Sparkles */}
             {['✨', '⭐', '🌟'].map((sparkle, index) => (
-              <div 
+              <div
                 key={`${sparkle}-${index}`}
                 className="absolute text-2xl animate-ping"
                 style={{
@@ -448,12 +449,14 @@ case 'tasks':
           </div>
         )}
 
-        <div className="mb-6">
-          <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Today's Hugs Given:</div>
-          <div className="text-3xl font-bold romantic-accent">{todayHugs}</div>
+        {/* Hug Count */}
+        <div className="mb-8">
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Today's Hugs Given:</div>
+          <div className="text-4xl font-bold romantic-accent tracking-wide">{todayHugs}</div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+        {/* Hug Buttons */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {[
             { emoji: '🤗', label: 'Warm Hug' },
             { emoji: '💝', label: 'Love Hug' },
@@ -465,16 +468,19 @@ case 'tasks':
             <Button
               key={index}
               onClick={() => sendHug(hug.emoji)}
-              className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95 border border-pink-200 dark:border-gray-600"
+              className="bg-white/90 dark:bg-gray-800 border border-pink-300 dark:border-pink-700 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-110 active:scale-95"
             >
-              <div className="text-4xl mb-2 transform transition-transform duration-200 hover:scale-125">{hug.emoji}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">{hug.label}</div>
+              <div className="text-4xl mb-1 transform transition-transform duration-200 hover:scale-125">
+                {hug.emoji}
+              </div>
+              <div className="text-sm text-gray-700 dark:text-gray-300 font-medium">{hug.label}</div>
             </Button>
           ))}
         </div>
       </div>
     </div>
   );
+
     case 'reminders':
       return (
         <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
