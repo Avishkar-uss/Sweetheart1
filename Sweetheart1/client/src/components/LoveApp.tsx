@@ -284,7 +284,7 @@ useEffect(() => {
 case 'home':
   return (
     <div className="relative min-h-screen pt-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 content-transition animate-fade-in">
-      
+
       {/* ❤️ Floating Hearts */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {Array.from({ length: 20 }).map((_, i) => (
@@ -304,16 +304,21 @@ case 'home':
         ))}
       </div>
 
-      {/* 💌 Message Box */}
-      <div className="relative z-10 max-w-3xl mx-auto text-center bg-white/70 dark:bg-gray-800/50 backdrop-blur-2xl rounded-3xl shadow-lg p-10 border border-white/30 dark:border-gray-700">
-        <h1 className="text-4xl sm:text-5xl font-bold romantic-accent text-gray-900 dark:text-white animate-pulse-love drop-shadow-sm mb-6">
-          Daily Love Message 💖
-        </h1>
-        <p className="text-2xl romantic-text text-pink-700 dark:text-pink-300 italic mb-6">
-          For my Sweetheart 💝
-        </p>
+      {/* 💖 Main Card */}
+      <div className="relative z-10 max-w-3xl mx-auto text-center bg-white/70 dark:bg-gray-800/50 backdrop-blur-2xl rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] p-10 border border-white/30 dark:border-gray-700">
 
-        <div className="bg-white/90 dark:bg-gray-900/70 border border-pink-200 dark:border-pink-700 rounded-2xl shadow-xl p-8 mb-8 transform hover:scale-[1.01] transition-transform duration-300">
+        {/* Header */}
+        <div className="mb-10">
+          <h1 className="text-5xl sm:text-6xl font-bold romantic-accent text-gray-900 dark:text-white animate-pulse-love drop-shadow-sm tracking-tight">
+            Daily Love Message <span className="animate-bounce">💖</span>
+          </h1>
+          <p className="text-2xl sm:text-3xl romantic-text text-pink-700 dark:text-pink-300 mt-3 italic font-light">
+            For my Sweetheart <span className="animate-pulse">💝</span>
+          </p>
+        </div>
+
+        {/* Message Box */}
+        <div className="bg-white/90 dark:bg-gray-900/70 border border-pink-200 dark:border-pink-700 rounded-2xl shadow-xl p-8 mb-8 transform hover:scale-[1.01] transition-transform duration-300 max-w-2xl mx-auto">
           <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-100 leading-relaxed mb-4 font-medium">
             {generateDailyLoveMessage()}
           </p>
@@ -322,6 +327,7 @@ case 'home':
           </p>
         </div>
 
+        {/* Timer */}
         <div className="bg-white/90 dark:bg-gray-800/60 rounded-xl shadow-lg px-6 py-4 inline-block border border-pink-100 dark:border-pink-900">
           <div className="text-sm text-gray-500 dark:text-gray-300 mb-1 font-medium">
             Next love message in:
@@ -330,9 +336,11 @@ case 'home':
             {nextMessageTimer}
           </div>
         </div>
+
       </div>
     </div>
   );
+
 
 
 
@@ -655,12 +663,12 @@ return (
       {getCurrentDate()}
     </div>
 
-   {/* 📋 Sidebar */}
+ {/* 📋 Sidebar */}
 <div className={`fixed top-0 left-0 h-full w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${
   sidebarVisible ? 'translate-x-0' : '-translate-x-full'
 } transition-transform duration-300 z-40`}>
   <div className="p-6 mt-16">
-    <nav className="flex flex-col space-y-4">
+    <nav className="space-y-2 flex flex-col">
       {[
         { label: 'Home', emoji: '🏠', key: 'home' },
         { label: 'Complaint Box', emoji: '📝', key: 'complaint' },
@@ -671,12 +679,36 @@ return (
         <button
           key={item.key}
           onClick={() => navigateToSection(item.key as Section)}
-          className="flex items-center justify-start gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+          className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all text-left"
         >
           <span className="text-xl">{item.emoji}</span>
           <span className="text-base">{item.label}</span>
         </button>
       ))}
+
+      {isAugust1st() && (
+        <button
+          onClick={() => navigateToSection('specialday')}
+          className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all text-left"
+        >
+          <span className="text-xl">💖</span>
+          <span className="text-base">Special Day</span>
+        </button>
+      )}
+
+      <hr className="border-gray-300 dark:border-gray-600 my-2" />
+
+      <button
+        onClick={toggleDarkMode}
+        className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all text-left"
+      >
+        <span className="text-xl">{isDarkMode ? '☀️' : '🌙'}</span>
+        <span className="text-base">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+      </button>
+    </nav>
+  </div>
+</div>
+
 
       {isAugust1st() && (
         <button
