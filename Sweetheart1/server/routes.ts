@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { db } from "../db"; // adjust path if needed
-import { complaints, tasks, hugs } from "../../shared/schema"; // update if your schema path differs
+import { db } from "../db"; // Adjust if needed
+import { complaints, tasks, hugs } from "../../shared/schema"; // Adjust path if schema is elsewhere
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Fetch complaints
@@ -37,7 +37,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create and return server
+  // Return the server instance
   const httpServer = createServer(app);
   return httpServer;
 }
