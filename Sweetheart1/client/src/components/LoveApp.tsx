@@ -663,12 +663,12 @@ return (
       {getCurrentDate()}
     </div>
 
- {/* 📋 Sidebar */}
+{/* 📋 Sidebar */}
 <div className={`fixed top-0 left-0 h-full w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${
   sidebarVisible ? 'translate-x-0' : '-translate-x-full'
 } transition-transform duration-300 z-40`}>
   <div className="p-6 mt-16">
-    <nav className="space-y-2 flex flex-col">
+    <nav className="flex flex-col space-y-4">
       {[
         { label: 'Home', emoji: '🏠', key: 'home' },
         { label: 'Complaint Box', emoji: '📝', key: 'complaint' },
@@ -679,7 +679,7 @@ return (
         <button
           key={item.key}
           onClick={() => navigateToSection(item.key as Section)}
-          className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all text-left"
+          className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
         >
           <span className="text-xl">{item.emoji}</span>
           <span className="text-base">{item.label}</span>
@@ -689,7 +689,7 @@ return (
       {isAugust1st() && (
         <button
           onClick={() => navigateToSection('specialday')}
-          className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all text-left"
+          className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
         >
           <span className="text-xl">💖</span>
           <span className="text-base">Special Day</span>
@@ -700,32 +700,10 @@ return (
 
       <button
         onClick={toggleDarkMode}
-        className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all text-left"
+        className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
       >
         <span className="text-xl">{isDarkMode ? '☀️' : '🌙'}</span>
         <span className="text-base">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-      </button>
-    </nav>
-  </div>
-</div>
-
-
-      {isAugust1st() && (
-        <button
-          onClick={() => navigateToSection('specialday')}
-          className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
-        >
-          <span>💖</span><span>Special Day</span>
-        </button>
-      )}
-
-      <hr className="border-gray-300 dark:border-gray-600" />
-      <button
-        onClick={toggleDarkMode}
-        className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full"
-      >
-        <span>{isDarkMode ? '☀️' : '🌙'}</span>
-        <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
       </button>
     </nav>
   </div>
