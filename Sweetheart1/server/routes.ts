@@ -1,15 +1,43 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { db } from "../db"; // adjust path if needed
+import { complaints, tasks, hugs } from "../../shared/schema"; // update if your schema path differs
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+  // Fetch complaints
+  app.get("/api/complaints", async (_req, res) => {
+    try {
+      const data = await db.select().from(complaints);
+      res.json(data);
+    } catch (err) {
+      console.error("Error fetching complaints:", err);
+      res.status(500).json({ error: "Failed to fetch complaints" });
+    }
+  });
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+  // Fetch tasks
+  app.get("/api/tasks", async (_req, res) => {
+    try {
+      const data = await db.select().from(tasks);
+      res.json(data);
+    } catch (err) {
+      console.error("Error fetching tasks:", err);
+      res.status(500).json({ error: "Failed to fetch tasks" });
+    }
+  });
 
+  // Fetch hugs
+  app.get("/api/hugs", async (_req, res) => {
+    try {
+      const data = await db.select().from(hugs);
+      res.json(data);
+    } catch (err) {
+      console.error("Error fetching hugs:", err);
+      res.status(500).json({ error: "Failed to fetch hugs" });
+    }
+  });
+
+  // Create and return server
   const httpServer = createServer(app);
-
   return httpServer;
 }
