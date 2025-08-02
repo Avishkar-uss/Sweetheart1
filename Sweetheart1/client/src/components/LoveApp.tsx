@@ -639,7 +639,6 @@ case 'tasks':
   };
 
 const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
-const sidebarVisible = isDesktop || sidebarOpen;
 
 return (
   <div
@@ -665,7 +664,7 @@ return (
 
 {/* 📋 Sidebar */}
 <div className={`fixed top-0 left-0 h-full w-64 overflow-y-auto bg-white dark:bg-gray-800 shadow-lg transform ${
-  sidebarVisible ? 'translate-x-0' : '-translate-x-full'
+  sidebarOpen ? 'translate-x-0' : '-translate-x-full'
 } transition-transform duration-300 z-40`}>
   <div className="p-6 mt-16">
     <nav className="flex flex-col space-y-4">
@@ -718,7 +717,7 @@ return (
 )}
 
 {/* 🧠 Main Content Wrapper */}
-<main className={`pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 ${sidebarVisible ? 'ml-64' : ''}`}>
+<main className={`pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 ${sidebarOpen ? 'ml-64' : ''}`}>
   {renderContent()}
 </main>
     </div>
