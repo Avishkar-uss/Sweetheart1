@@ -709,18 +709,19 @@ return (
   </div>
 </div>
 
-    {/* 🧊 Sidebar Overlay */}
-    {sidebarOpen && (
-      <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-30"
-        onClick={() => setSidebarOpen(false)}
-      />
-    )}
+   {/* 🧊 Sidebar Overlay */}
+{sidebarOpen && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-50 z-30"
+    onClick={() => setSidebarOpen(false)}
+  />
+)}
 
-   {/* 🧠 Main Content Wrapper */}
+{/* 🧠 Main Content Wrapper */}
 <main className={`pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 ${sidebarVisible ? 'ml-64' : ''}`}>
   {renderContent()}
 </main>
-  </div>
-);
+    </div>
+  );
 }
+  
