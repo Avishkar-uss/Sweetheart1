@@ -21,14 +21,36 @@ interface Complaint {
 }
 
 const dailyTasks = [
-  { text: "Drink 8 glasses of water 💧", completed: false },
+ { text: "Drink 8 glasses of water 💧", completed: false },
   { text: "Eat something delicious 🍽️", completed: false },
   { text: "Take 3 deep breaths 🫁", completed: false },
   { text: "Send me a cute selfie 📸", completed: false },
   { text: "Tell me about your day 💬", completed: false },
   { text: "Do something that makes you smile 😊", completed: false },
   { text: "Give yourself a compliment 💕", completed: false },
-  { text: "Listen to your favorite song 🎵", completed: false }
+  { text: "Listen to your favorite song 🎵", completed: false },
+  { text: "Stretch for 5 minutes 🧘‍♀️", completed: false },
+  { text: "Write down one thing you're grateful for ✨", completed: false },
+  { text: "Take a 10-minute walk 🚶‍♀️", completed: false },
+  { text: "Send a sweet message to someone you love 💌", completed: false },
+  { text: "Organize one small thing 🧺", completed: false },
+  { text: "Put your phone away for 30 mins 📵", completed: false },
+  { text: "Look at the sky for 1 minute ☁️", completed: false },
+  { text: "Smile at yourself in the mirror 🪞", completed: false },
+  { text: "Draw a doodle 🎨", completed: false },
+  { text: "Eat a fruit 🍎", completed: false },
+  { text: "Hug your pillow tight 🤗", completed: false },
+  { text: "Play your favorite game 🎮", completed: false },
+  { text: "Look at old happy photos 🖼️", completed: false },
+  { text: "Say 'I love myself' out loud 💗", completed: false },
+  { text: "Play with your hair or style it 💇‍♀️", completed: false },
+  { text: "Make your bed nicely 🛏️", completed: false },
+  { text: "Do 10 jumping jacks 🤸‍♀️", completed: false },
+  { text: "Wash your face with love 🧼", completed: false },
+  { text: "Light a candle or smell something nice 🕯️", completed: false },
+  { text: "Read 1 page of a book 📖", completed: false },
+  { text: "Write me a cute thought 📝", completed: false },
+  { text: "Set one small goal for tomorrow 🎯", completed: false }
 ];
 
 export default function LoveApp() {
