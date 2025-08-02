@@ -679,12 +679,12 @@ export default function LoveApp() {
     )}
 
    {/* 🧠 Main Content Wrapper */}
-<main className={`pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 flex flex-col min-h-screen`}>
-  <div className="flex-grow">
-    {renderContent()}
+    <main className="pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 flex flex-col min-h-screen">
+      <div className="flex-grow flex justify-center items-start">
+        {renderContent()}
+      </div>
+    </main>
   </div>
-</main>
-
 );
 }
   
