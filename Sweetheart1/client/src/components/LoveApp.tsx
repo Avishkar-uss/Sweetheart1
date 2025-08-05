@@ -58,13 +58,11 @@ export default function LoveApp() {
   const [currentSection, setCurrentSection] = useState<Section>('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useLocalStorage('loveApp_darkMode', false);
-  const [complaintText, setComplaintText] = useState('');
-  const [complaints, setComplaints] = useLocalStorage<Complaint[]>('loveApp_complaints', []);
   const [hugCounter, setHugCounter] = useLocalStorage<Record<string, number>>('loveApp_hugCounter', {});
   const [dailyTasksData, setDailyTasksData] = useLocalStorage<Record<string, Task[]>>('loveApp_dailyTasks', {});
   const [nextMessageTimer, setNextMessageTimer] = useState('');
   const [hugAnimation, setHugAnimation] = useState<{ show: boolean; emoji: string; id: number; hearts: boolean }>({ show: false, emoji: '', id: 0, hearts: false });
-  
+
   // Store special day data for developer access and monitoring
   const [specialDayData, setSpecialDayData] = useLocalStorage('loveApp_nationalGirlfriendDay', {
     lastCelebrated: '',
@@ -89,16 +87,15 @@ export default function LoveApp() {
     pageViews: 0,
     lastAccessed: ''
   });
-  
+
   const [reminders, setReminders] = useLocalStorage<string[]>('loveApp_reminders', []);
-  
+
   // Comprehensive usage analytics for developer monitoring
   const [usageAnalytics, setUsageAnalytics] = useLocalStorage('loveApp_usageAnalytics', {
     totalSessions: 0,
     lastSessionDate: '',
     sectionVisits: {
       home: 0,
-      complaint: 0,
       tasks: 0,
       hugs: 0,
       reminders: 0,
@@ -106,7 +103,6 @@ export default function LoveApp() {
     },
     interactionCounts: {
       hugsSent: 0,
-      complaintsSubmitted: 0,
       tasksCompleted: 0,
       remindersViewed: 0,
       darkModeToggles: 0
@@ -131,7 +127,7 @@ export default function LoveApp() {
   // Handle navigation from URL
   useEffect(() => {
     const section = location.slice(1) as Section;
-    if (['home', 'complaint', 'tasks', 'hugs', 'reminders', 'specialday'].includes(section)) {
+    if (['home', 'tasks', 'hugs', 'reminders', 'specialday'].includes(section)) {
       setCurrentSection(section);
     } else {
       setCurrentSection('home');
@@ -158,20 +154,14 @@ export default function LoveApp() {
     }
   }, [isDarkMode]);
 
-  const navigateToSection = useCallback((section: Section) => {
-    setCurrentSection(section);
-    navigate(`/${section}`);
-    setSidebarOpen(false);
+  const navigateToSection = useCallback((section: string) => {
+    // Skip complaint section - it's been removed
+    if (section === 'complaints') return;
     
-    // Track section visits for analytics
-    setUsageAnalytics(prev => ({
-      ...prev,
-      sectionVisits: {
-        ...prev.sectionVisits,
-        [section]: prev.sectionVisits[section] + 1
-      }
-    }));
-  }, [navigate, setUsageAnalytics]);
+    setCurrentSection(section);
+    window.history.pushState({}, '', `/${section}`);
+    setSidebarOpen(false);
+  }, [navigate]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -179,27 +169,6 @@ export default function LoveApp() {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-  };
-
-  const submitComplaint = () => {
-    if (complaintText.trim()) {
-      const newComplaint: Complaint = {
-        text: complaintText.trim(),
-        timestamp: new Date().toISOString(),
-        date: new Date().toLocaleDateString()
-      };
-      setComplaints((prev: Complaint[]) => [...prev, newComplaint]);
-      setComplaintText('');
-      
-      // Track complaint submissions
-      setUsageAnalytics(prev => ({
-        ...prev,
-        interactionCounts: {
-          ...prev.interactionCounts,
-          complaintsSubmitted: prev.interactionCounts.complaintsSubmitted + 1
-        }
-      }));
-    }
   };
 
   const toggleTask = (index: number) => {
@@ -259,218 +228,261 @@ export default function LoveApp() {
   };
 
   const renderContent = () => {
-  switch (currentSection) {
-    case 'home':
-      return (
-        <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in pt-20">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold romantic-accent mb-4 animate-pulse-love">Daily Love Message 💖</h1>
-            <p className="text-xl romantic-text mb-8">For my Sweetheart 💝</p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-6 transform hover:scale-105 transition-transform duration-300">
-            <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
-              {generateDailyLoveMessage()}
-            </div>
-            <div className="text-sm romantic-text">
-              💌 A new message awaits you tomorrow
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 inline-block">
-            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Next love message in:</div>
-            <div className="text-lg font-bold romantic-accent">
-              {nextMessageTimer}
-            </div>
-          </div>
-        </div>
-      );
-
-    case 'complaint':
-      return (
-        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold romantic-accent mb-2">Complaint Box 💬</h2>
-            <p className="romantic-text text-sm">Your sweet concerns make this love even sweeter 💌</p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-            <Textarea
-              value={complaintText}
-              onChange={(e) => setComplaintText(e.target.value)}
-              rows={4}
-              className="w-full p-3 border border-pink-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none mb-4"
-              placeholder="Write your sweet complaint... 💭"
-            />
-
-            <Button
-              onClick={submitComplaint}
-              className="romantic-accent-bg text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-200 transform hover:scale-105 w-full">
-              Submit 💝
-            </Button>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 text-center mt-4">
-            <div className="text-2xl mb-2">🤗</div>
-            <div className="romantic-text text-sm">You're loved, heard, and cherished!</div>
-          </div>
-        </div>
-      );
-
-    case 'tasks':
-      return (
-        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold romantic-accent mb-4">Love Tasks ✅</h2>
-            <p className="romantic-text">Sweet little things to make our day better</p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-            <div className="space-y-4">
-              {todayTasks.map((task: Task, index: number) => (
-                <div key={index} className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded-lg hover:shadow-md transition-shadow duration-200">
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleTask(index)}
-                    className="w-5 h-5 text-pink-500 rounded focus:ring-pink-500"
-                  />
-                  <label className={`flex-1 text-gray-700 dark:text-gray-300 ${task.completed ? 'line-through opacity-60' : ''}`}>
-                    {task.text}
-                  </label>
+    switch (currentSection) {
+      case 'home':
+        return (
+          <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in">
+            <div className="bg-white dark:bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-300 p-8 mb-8 animate-bounce-huge">
+              <div className="bg-white dark:bg-white border border-gray-200 dark:border-gray-300 rounded-2xl shadow-xl p-8 animate-heart-float">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-6 animate-pulse-love">
+                  💖 Daily Love Message 💖
+                </h2>
+                <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-800 leading-relaxed mb-6 animate-floating-heart">
+                  {generateDailyLoveMessage()}
+                </p>
+                <div className="bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-100 dark:to-purple-100 rounded-xl shadow-lg px-6 py-4 inline-block border-2 border-pink-300 dark:border-pink-300 animate-pulse">
+                  <p className="text-xl font-bold text-gray-900 dark:text-gray-900">
+                    📅 {new Date().toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-6 p-4 bg-white dark:bg-gray-700 rounded-lg text-center">
-              <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Today's Progress</div>
-              <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
-                <div
-                  className="romantic-accent-bg h-3 rounded-full transition-all duration-500"
-                  style={{ width: `${progressPercentage}%` }}
-                ></div>
-              </div>
-              <div className="text-sm romantic-text mt-2">
-                {progressPercentage}% Complete ({completedTasks}/{todayTasks.length})
               </div>
             </div>
           </div>
-        </div>
-      );
+        );
 
-    case 'hugs':
-      return (
-        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold romantic-accent mb-4">Virtual Hugs 🤗</h2>
-            <p className="romantic-text">Sending love when we miss each other</p>
-          </div>
+      case 'tasks':
+        return (
+          <div className="max-w-2xl mx-auto content-transition animate-fade-in">
+            <div className="bg-white dark:bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-300 p-8 mb-8 animate-bounce-huge">
+              <div className="bg-white dark:bg-white border border-gray-200 dark:border-gray-300 rounded-2xl shadow-xl p-8 animate-heart-float">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-6 animate-pulse-love">
+                  ✅ Love Tasks ✅
+                </h2>
+                <p className="text-lg text-gray-800 dark:text-gray-800 mb-6 animate-floating-heart">
+                  Sweet little things to make our day better 💕
+                </p>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center relative">
-            {/* Hug Animation Overlay */}
-            {hugAnimation.show && (
-              <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-                <div className="text-8xl animate-bounce-huge" key={hugAnimation.id}>
-                  {hugAnimation.emoji}
+                <div className="space-y-4 mb-6">
+                  {todayTasks.map((task: Task, index: number) => (
+                    <div key={index} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-50 dark:to-purple-50 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-floating-heart" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <input
+                        type="checkbox"
+                        checked={task.completed}
+                        onChange={() => toggleTask(index)}
+                        className="w-6 h-6 text-pink-500 rounded-lg focus:ring-pink-500 transform hover:scale-110 transition-transform"
+                      />
+                      <label className={`flex-1 text-lg text-gray-900 dark:text-gray-900 font-medium ${task.completed ? 'line-through opacity-60' : ''}`}>
+                        {task.text}
+                      </label>
+                      {task.completed && <span className="text-2xl animate-bounce">🎉</span>}
+                    </div>
+                  ))}
                 </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="text-6xl opacity-40 animate-hug-explosion">{hugAnimation.emoji}</div>
-                </div>
-                {hugAnimation.hearts && (
-                  <>
-                    {['💖', '💕', '💝', '❤️', '💗'].map((heart, index) => (
-                      <div
-                        key={`heart-${index}`}
-                        className="absolute animate-heart-float text-4xl"
-                        style={{
-                          left: `${40 + index * 5}%`,
-                          top: '60%',
-                          animationDelay: `${index * 0.3}s`
-                        }}
-                      >
-                        {heart}
-                      </div>
-                    ))}
-                    {['💖', '💕', '💝'].map((heart, index) => (
-                      <div
-                        key={`heart2-${index}`}
-                        className="absolute animate-heart-float text-3xl"
-                        style={{
-                          right: `${35 + index * 8}%`,
-                          top: '65%',
-                          animationDelay: `${1 + index * 0.4}s`
-                        }}
-                      >
-                        {heart}
-                      </div>
-                    ))}
-                  </>
-                )}
-                {['✨', '⭐', '🌟'].map((sparkle, index) => (
-                  <div
-                    key={`sparkle-${index}`}
-                    className="absolute text-2xl animate-ping"
-                    style={{
-                      left: `${20 + index * 20}%`,
-                      top: `${30 + index * 15}%`,
-                      animationDelay: `${index * 0.5}s`
-                    }}
-                  >
-                    {sparkle}
+
+                <div className="bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-100 dark:to-purple-100 rounded-xl shadow-lg p-6 text-center border-2 border-pink-300 dark:border-pink-300 animate-pulse">
+                  <div className="text-lg font-bold text-gray-900 dark:text-gray-900 mb-3">Today's Progress 📊</div>
+                  <div className="w-full bg-white rounded-full h-4 shadow-inner">
+                    <div
+                      className="bg-gradient-to-r from-pink-400 to-purple-500 h-4 rounded-full transition-all duration-1000 animate-pulse"
+                      style={{ width: `${progressPercentage}%` }}
+                    ></div>
                   </div>
-                ))}
+                  <div className="text-xl font-bold text-gray-900 dark:text-gray-900 mt-3">
+                    {progressPercentage}% Complete ({completedTasks}/{todayTasks.length}) 🌟
+                  </div>
+                </div>
               </div>
-            )}
-
-            <div className="mb-6">
-              <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Today's Hugs Given:</div>
-              <div className="text-3xl font-bold romantic-accent">{todayHugs}</div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-              {[
-                { emoji: '🤗', label: 'Warm Hug' },
-                { emoji: '💝', label: 'Love Hug' },
-                { emoji: '🌸', label: 'Gentle Hug' },
-                { emoji: '✨', label: 'Magic Hug' },
-                { emoji: '🦋', label: 'Butterfly Hug' },
-                { emoji: '🌙', label: 'Goodnight Hug' }
-              ].map((hug, index) => (
-                <Button
-                  key={index}
-                  onClick={() => sendHug(hug.emoji)}
-                  className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95 border border-pink-200 dark:border-gray-600"
-                >
-                  <div className="text-4xl mb-2 transform transition-transform duration-200 hover:scale-125">{hug.emoji}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">{hug.label}</div>
-                </Button>
-              ))}
             </div>
           </div>
-        </div>
-      );
+        );
 
-    case 'reminders':
-      return (
-        <div className="max-w-2xl mx-auto content-transition animate-fade-in pt-20">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold romantic-accent mb-4">Daily Reminders 📋</h2>
-            <p className="romantic-text">Sweet thoughts for today</p>
-          </div>
+      case 'hugs':
+        return (
+          <div className="max-w-2xl mx-auto content-transition animate-fade-in">
+            <div className="bg-white dark:bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-300 p-8 mb-8 animate-bounce-huge">
+              <div className="bg-white dark:bg-white border border-gray-200 dark:border-gray-300 rounded-2xl shadow-xl p-8 animate-heart-float text-center relative">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-6 animate-pulse-love">
+                  🤗 Virtual Hugs 🤗
+                </h2>
+                <p className="text-lg text-gray-800 dark:text-gray-800 mb-8 animate-floating-heart">
+                  Sending love when we miss each other 💕
+                </p>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
-            <div className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
-              {generateDailyReminder()}
+                {/* Enhanced Hug Animation Overlay */}
+                {hugAnimation.show && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+                    {/* Main hug emoji with enhanced animation */}
+                    <div className="text-9xl animate-bounce-huge transform-gpu" key={hugAnimation.id} style={{ animationDuration: '0.8s' }}>
+                      {hugAnimation.emoji}
+                    </div>
+                    
+                    {/* Secondary hug effect */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="text-7xl opacity-30 animate-hug-explosion transform-gpu" style={{ animationDuration: '1.2s' }}>{hugAnimation.emoji}</div>
+                    </div>
+                    
+                    {/* Floating hearts with staggered animation */}
+                    {hugAnimation.hearts && (
+                      <>
+                        {['💖', '💕', '💝', '❤️', '💗', '💘', '💞'].map((heart, index) => (
+                          <div
+                            key={`heart-${index}`}
+                            className="absolute animate-heart-float text-5xl transform-gpu"
+                            style={{
+                              left: `${35 + index * 4}%`,
+                              top: `${55 + Math.sin(index) * 10}%`,
+                              animationDelay: `${index * 0.2}s`,
+                              animationDuration: '3s'
+                            }}
+                          >
+                            {heart}
+                          </div>
+                        ))}
+                        {['💖', '💕', '💝', '✨', '🌟'].map((heart, index) => (
+                          <div
+                            key={`heart2-${index}`}
+                            className="absolute animate-heart-float text-4xl transform-gpu"
+                            style={{
+                              right: `${30 + index * 6}%`,
+                              top: `${60 + Math.cos(index) * 8}%`,
+                              animationDelay: `${0.8 + index * 0.3}s`,
+                              animationDuration: '2.5s'
+                            }}
+                          >
+                            {heart}
+                          </div>
+                        ))}
+                      </>
+                    )}
+                    
+                    {/* Sparkle effects with optimized animation */}
+                    {['✨', '⭐', '🌟', '💫', '✨'].map((sparkle, index) => (
+                      <div
+                        key={`sparkle-${index}`}
+                        className="absolute text-3xl animate-ping transform-gpu"
+                        style={{
+                          left: `${15 + index * 18}%`,
+                          top: `${25 + index * 12}%`,
+                          animationDelay: `${index * 0.4}s`,
+                          animationDuration: '2s'
+                        }}
+                      >
+                        {sparkle}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-100 dark:to-purple-100 rounded-xl shadow-lg p-6 mb-8 border-2 border-pink-300 dark:border-pink-300 animate-pulse">
+                  <div className="text-lg font-bold text-gray-900 dark:text-gray-900 mb-2">Today's Hugs Given 📊</div>
+                  <div className="text-4xl font-bold text-gray-900 dark:text-gray-900">{todayHugs} 🤗</div>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                  {[
+                    { emoji: '🤗', label: 'Warm Hug', color: 'from-orange-100 to-yellow-100' },
+                    { emoji: '💝', label: 'Love Hug', color: 'from-pink-100 to-red-100' },
+                    { emoji: '🌸', label: 'Gentle Hug', color: 'from-pink-100 to-purple-100' },
+                    { emoji: '✨', label: 'Magic Hug', color: 'from-blue-100 to-purple-100' },
+                    { emoji: '🦋', label: 'Butterfly Hug', color: 'from-green-100 to-blue-100' },
+                    { emoji: '🌙', label: 'Goodnight Hug', color: 'from-indigo-100 to-purple-100' }
+                  ].map((hug, index) => (
+                    <button
+                      key={index}
+                      onClick={() => sendHug(hug.emoji)}
+                      className={`bg-gradient-to-r ${hug.color} p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 border-2 border-gray-200 hover:border-pink-300 animate-floating-heart`}
+                      style={{ 
+                        animationDelay: `${index * 0.1}s`,
+                        animationDuration: '4s'
+                      }}
+                    >
+                      <div className="text-5xl mb-3 transform transition-all duration-300 hover:scale-125 hover:rotate-12">{hug.emoji}</div>
+                      <div className="text-sm font-medium text-gray-900">{hug.label}</div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-50 dark:to-purple-50 rounded-xl p-6 border-2 border-pink-200 dark:border-pink-200 animate-floating-heart">
+                  <div className="flex justify-center space-x-2 mb-4">
+                    {['💖', '🤗', '💕', '✨', '💝', '🤗', '💖'].map((emoji, index) => (
+                      <span
+                        key={index}
+                        className="text-3xl animate-bounce cursor-pointer hover:scale-150 transition-all duration-300"
+                        style={{ 
+                          animationDelay: `${index * 0.1}s`,
+                          animationDuration: '2s'
+                        }}
+                      >
+                        {emoji}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-900">
+                    💝 Every hug sent is a hug received! 💝
+                  </p>
+                </div>
+              </div>
             </div>
+          </div>
+        );
 
-            <div className="flex justify-center space-x-4">
-              <span className="text-2xl animate-float">🌸</span>
-              <span className="text-2xl animate-float" style={{ animationDelay: '0.5s' }}>💕</span>
-              <span className="text-2xl animate-float" style={{ animationDelay: '1s' }}>✨</span>
+      case 'reminders':
+        return (
+          <div className="max-w-2xl mx-auto content-transition animate-fade-in">
+            <div className="bg-white dark:bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-300 p-8 mb-8 animate-bounce-huge">
+              <div className="bg-white dark:bg-white border border-gray-200 dark:border-gray-300 rounded-2xl shadow-xl p-8 animate-heart-float text-center">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-6 animate-pulse-love">
+                  📋 Daily Reminders 📋
+                </h2>
+                <p className="text-lg text-gray-800 dark:text-gray-800 mb-8 animate-floating-heart">
+                  Sweet thoughts for today 🌸
+                </p>
+
+                <div className="bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-50 dark:to-purple-50 rounded-xl p-6 mb-8 border-2 border-pink-200 dark:border-pink-200 animate-floating-heart">
+                  <div className="text-xl text-gray-900 dark:text-gray-900 leading-relaxed font-medium">
+                    {generateDailyReminder()}
+                  </div>
+                </div>
+
+                <div className="flex justify-center space-x-3 mb-6">
+                  {['💖', '💕', '💝', '❤️', '💗', '💘', '💞', '🌹', '✨'].map((emoji, index) => (
+                    <span
+                      key={index}
+                      className="text-4xl cursor-pointer hover:scale-150 transition-all duration-300 animate-bounce"
+                      style={{ 
+                        animationDelay: `${index * 0.15}s`,
+                        animationDuration: '2s'
+                      }}
+                      onClick={() => {
+                        // Add a little sparkle effect on click
+                        const element = document.elementFromPoint(0, 0);
+                        if (element) {
+                          element.style.transform = 'scale(1.5) rotate(360deg)';
+                          setTimeout(() => {
+                            element.style.transform = '';
+                          }, 500);
+                        }
+                      }}
+                    >
+                      {emoji}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-100 dark:to-purple-100 rounded-xl shadow-lg px-6 py-4 inline-block border-2 border-pink-300 dark:border-pink-300 animate-pulse">
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-900">
+                    💝 You are loved and cherished every day! 💝
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
 
       case 'specialday':
         // Track page access for developer monitoring
@@ -611,80 +623,91 @@ export default function LoveApp() {
     }
   };
 
- return (
-  <div 
-    className="font-['Segoe_UI'] min-h-screen transition-all duration-300" 
-    style={{ 
-      backgroundColor: isDarkMode ? 'hsl(340, 80%, 8%)' : 'hsl(338, 90%, 85%)',
-      background: isDarkMode 
-        ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%)' 
-        : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%)',
-      backgroundImage: isDarkMode
-        ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 20%, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 15%, 0.4) 0%, transparent 50%)'
-        : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
-    }}
-  >
-    {/* 🍔 Hamburger Menu */}
+  return (
     <div 
-      className="fixed top-4 left-4 z-50 cursor-pointer text-4xl hover:scale-110 transition-transform duration-200" 
-      onClick={toggleSidebar}
+      className="font-['Segoe_UI'] min-h-screen transition-all duration-300" 
+      style={{ 
+        backgroundColor: isDarkMode ? 'hsl(340, 80%, 8%)' : 'hsl(338, 90%, 85%)',
+        background: isDarkMode 
+          ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%)' 
+          : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%)',
+        backgroundImage: isDarkMode
+          ? 'linear-gradient(135deg, hsl(340, 90%, 6%) 0%, hsl(320, 85%, 10%) 50%, hsl(340, 75%, 8%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 20%, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 15%, 0.4) 0%, transparent 50%)'
+          : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
+      }}
     >
-      <span className="romantic-accent">☰</span>
-    </div>
-
-    {/* 📅 Date Display */}
-    <div className="fixed top-4 right-4 z-40 text-sm text-gray-600 dark:text-gray-400">
-      {getCurrentDate()}
-    </div>
-
-    {/* 📋 Sidebar */}
-    <div className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} sidebar-transition z-40`}>
-      <div className="p-6 mt-16">
-        <nav className="space-y-4">
-          <button onClick={() => navigateToSection('home')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>🏠</span><span>Home</span>
-          </button>
-          <button onClick={() => navigateToSection('complaint')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>📝</span><span>Complaint Box</span>
-          </button>
-          <button onClick={() => navigateToSection('tasks')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>✅</span><span>Tasks</span>
-          </button>
-          <button onClick={() => navigateToSection('hugs')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>🤗</span><span>Hugs</span>
-          </button>
-          <button onClick={() => navigateToSection('reminders')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>📋</span><span>Reminders</span>
-          </button>
-          {isAugust1st() && (
-            <button onClick={() => navigateToSection('specialday')} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-              <span>💖</span><span>Special Day</span>
-            </button>
-          )}
-          <hr className="border-gray-300 dark:border-gray-600" />
-          <button onClick={toggleDarkMode} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 w-full">
-            <span>{isDarkMode ? '☀️' : '🌙'}</span>
-            <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-          </button>
-        </nav>
-      </div>
-    </div>
-
-    {/* 🧊 Sidebar Overlay */}
-    {sidebarOpen && (
+      {/* 🍔 Hamburger Menu */}
       <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-30" 
-        onClick={() => setSidebarOpen(false)}
-      />
-    )}
-
-   {/* 🧠 Main Content Wrapper */}
-    <main className="pt-24 pb-10 px-4 sm:px-6 transition-all duration-300 flex flex-col min-h-screen">
-      <div className="flex-grow flex justify-center items-start">
-        {renderContent()}
+        className="fixed top-4 left-4 z-50 cursor-pointer text-4xl hover:scale-110 transition-transform duration-200" 
+        onClick={toggleSidebar}
+      >
+        <span className="romantic-accent">☰</span>
       </div>
-    </main>
-  </div>
-);
+
+      {/* 📅 Date Display */}
+      <div className="fixed top-4 right-4 z-40 text-sm text-gray-600 dark:text-gray-400">
+        {getCurrentDate()}
+      </div>
+
+      {/* 📋 Sidebar */}
+      <div className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} z-40`}>
+        <div className="p-6 mt-16">
+          <nav className="space-y-4">
+            <button
+              onClick={() => navigateToSection('home')}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+            >
+              <span className="text-xl">🏠</span>
+              Home
+            </button>
+            <button
+              onClick={() => navigateToSection('tasks')}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+            >
+              <span className="text-xl">✅</span>
+              Tasks
+            </button>
+            <button
+              onClick={() => navigateToSection('hugs')}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+            >
+              <span className="text-xl">🤗</span>
+              Hugs
+            </button>
+            <button
+              onClick={() => navigateToSection('admin')}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+            >
+              <span className="text-xl">⚙️</span>
+              Admin
+            </button>
+            <hr className="border-gray-300 dark:border-gray-600" />
+            <button
+              onClick={toggleDarkMode}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+            >
+              <span className="text-xl">{isDarkMode ? '☀️' : '🌙'}</span>
+              <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      {/* 🧊 Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-30" 
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* 🧠 Main Content Wrapper */}
+      <main className="pt-4 pb-10 px-4 sm:px-6 transition-all duration-300 flex flex-col min-h-screen">
+        <div className="flex-grow flex justify-center items-center">
+          {renderContent()}
+        </div>
+      </main>
+    </div>
+  );
 }
   
