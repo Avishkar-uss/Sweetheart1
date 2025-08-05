@@ -231,24 +231,30 @@ export default function LoveApp() {
     switch (currentSection) {
       case 'home':
         return (
-          <div className="max-w-2xl mx-auto text-center content-transition animate-fade-in">
-            <div className="bg-white dark:bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-300 p-8 mb-8 animate-bounce-huge">
-              <div className="bg-white dark:bg-white border border-gray-200 dark:border-gray-300 rounded-2xl shadow-xl p-8 animate-heart-float">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-6 animate-pulse-love">
-                  💖 Daily Love Message 💖
-                </h2>
-                <p className="text-xl sm:text-2xl text-gray-800 dark:text-gray-800 leading-relaxed mb-6 animate-floating-heart">
-                  {generateDailyLoveMessage()}
-                </p>
-                <div className="bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-100 dark:to-purple-100 rounded-xl shadow-lg px-6 py-4 inline-block border-2 border-pink-300 dark:border-pink-300 animate-pulse">
-                  <p className="text-xl font-bold text-gray-900 dark:text-gray-900">
-                    📅 {new Date().toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </p>
+          <div className="w-full flex items-center justify-center">
+            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 max-w-2xl w-full animate-pulse-love text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                💖 Daily Love Message 💖
+              </h2>
+              <p className="text-xl sm:text-2xl text-gray-800 leading-relaxed mb-6">
+                {generateDailyLoveMessage()}
+              </p>
+              
+              <div className="flex justify-center space-x-2 mb-6">
+                {['💖', '💕', '💝', '❤️', '💗', '💘', '💞'].map((heart, index) => (
+                  <span
+                    key={index}
+                    className="text-3xl animate-bounce cursor-pointer hover:scale-150 transition-transform"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    {heart}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 border border-pink-200">
+                <div className="text-lg text-gray-900">
+                  Every moment with you is a treasure! 💎✨
                 </div>
               </div>
             </div>
@@ -625,7 +631,7 @@ export default function LoveApp() {
 
   return (
     <div 
-      className="font-['Segoe_UI'] min-h-screen transition-all duration-300" 
+      className="font-['Segoe_UI'] min-h-screen h-screen overflow-hidden transition-all duration-300 relative" 
       style={{ 
         backgroundColor: isDarkMode ? 'hsl(340, 80%, 8%)' : 'hsl(338, 90%, 85%)',
         background: isDarkMode 
@@ -636,52 +642,71 @@ export default function LoveApp() {
           : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
       }}
     >
-      {/* 🍔 Hamburger Menu */}
-      <div 
-        className="fixed top-4 left-4 z-50 cursor-pointer text-4xl hover:scale-110 transition-transform duration-200" 
-        onClick={toggleSidebar}
-      >
-        <span className="romantic-accent">☰</span>
-      </div>
-
-      {/* 📅 Date Display */}
-      <div className="fixed top-4 right-4 z-40 text-sm text-gray-600 dark:text-gray-400">
+      {/* 📅 Date Display - Top Left */}
+      <div className="fixed top-4 left-4 z-40 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/30">
         {getCurrentDate()}
       </div>
 
-      {/* 📋 Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} z-40`}>
-        <div className="p-6 mt-16">
-          <nav className="space-y-4">
+      {/* 🍔 Hamburger Menu - Top Right */}
+      <div 
+        className="fixed top-4 right-4 z-50 cursor-pointer text-4xl hover:scale-110 transition-transform duration-200" 
+        onClick={toggleSidebar}
+      >
+        <span className="text-gray-700 dark:text-gray-300">☰</span>
+      </div>
+
+      {/* 📋 Sidebar - Only visible when toggled */}
+      <div className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-40`}>
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-6">💕 Navigation</h2>
+          
+          <nav className="space-y-3">
             <button
               onClick={() => navigateToSection('home')}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                currentSection === 'home' 
+                  ? 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200' 
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-pink-900/30'
+              }`}
             >
-              <span className="text-xl">🏠</span>
-              Home
+              🏠 Home
             </button>
+            
             <button
               onClick={() => navigateToSection('tasks')}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                currentSection === 'tasks' 
+                  ? 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200' 
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-pink-900/30'
+              }`}
             >
-              <span className="text-xl">✅</span>
-              Tasks
+              ✅ Tasks
             </button>
+            
+            <button
+              onClick={() => navigateToSection('reminders')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                currentSection === 'reminders' 
+                  ? 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200' 
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-pink-900/30'
+              }`}
+            >
+              🔔 Reminders
+            </button>
+            
             <button
               onClick={() => navigateToSection('hugs')}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                currentSection === 'hugs' 
+                  ? 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200' 
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-pink-900/30'
+              }`}
             >
-              <span className="text-xl">🤗</span>
-              Hugs
+              🤗 Hugs
             </button>
-            <button
-              onClick={() => navigateToSection('admin')}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
-            >
-              <span className="text-xl">⚙️</span>
-              Admin
-            </button>
-            <hr className="border-gray-300 dark:border-gray-600" />
+            
+            <hr className="border-gray-300 dark:border-gray-600 my-4" />
+            
             <button
               onClick={toggleDarkMode}
               className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-700 text-gray-700 dark:text-gray-300 w-full transition-all"
@@ -693,7 +718,7 @@ export default function LoveApp() {
         </div>
       </div>
 
-      {/* 🧊 Sidebar Overlay */}
+// ... (rest of the code remains the same)
       {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-30" 
@@ -702,12 +727,14 @@ export default function LoveApp() {
       )}
 
       {/* 🧠 Main Content Wrapper */}
-      <main className="pt-4 pb-10 px-4 sm:px-6 transition-all duration-300 flex flex-col min-h-screen">
-        <div className="flex-grow flex justify-center items-center">
+      <main className="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="w-full max-w-4xl">
           {renderContent()}
         </div>
       </main>
     </div>
   );
 }
+  
+
   
