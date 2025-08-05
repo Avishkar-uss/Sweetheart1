@@ -232,7 +232,7 @@ export default function LoveApp() {
       case 'home':
         return (
           <div className="w-full flex items-center justify-center">
-            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 max-w-2xl w-full animate-pulse-love text-center">
+            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 max-w-2xl w-full animate-floating-heart text-center">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 💖 Daily Love Message 💖
               </h2>
@@ -244,8 +244,7 @@ export default function LoveApp() {
                 {['💖', '💕', '💝', '❤️', '💗', '💘', '💞'].map((heart, index) => (
                   <span
                     key={index}
-                    className="text-3xl animate-bounce cursor-pointer hover:scale-150 transition-transform"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="text-3xl cursor-pointer hover:scale-150 transition-transform"
                   >
                     {heart}
                   </span>
