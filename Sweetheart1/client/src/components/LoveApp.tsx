@@ -232,7 +232,7 @@ export default function LoveApp() {
       case 'home':
         return (
           <div className="w-full flex items-center justify-center">
-            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 max-w-2xl w-full animate-floating-heart text-center">
+            <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-8 max-w-2xl w-full animate-floating-heart text-center">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 💖 Daily Love Message 💖
               </h2>
@@ -262,19 +262,18 @@ export default function LoveApp() {
 
       case 'tasks':
         return (
-          <div className="max-w-2xl mx-auto content-transition animate-fade-in">
-            <div className="bg-white dark:bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-300 p-8 mb-8 animate-bounce-huge">
-              <div className="bg-white dark:bg-white border border-gray-200 dark:border-gray-300 rounded-2xl shadow-xl p-8 animate-heart-float">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-6 animate-pulse-love">
-                  ✅ Love Tasks ✅
-                </h2>
-                <p className="text-lg text-gray-800 dark:text-gray-800 mb-6 animate-floating-heart">
-                  Sweet little things to make our day better 💕
-                </p>
+          <div className="w-full flex items-center justify-center">
+            <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-8 max-w-2xl w-full animate-floating-heart text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                ✅ Love Tasks ✅
+              </h2>
+              <p className="text-lg text-gray-800 mb-6">
+                Sweet little things to make our day better 💕
+              </p>
 
                 <div className="space-y-4 mb-6">
                   {todayTasks.map((task: Task, index: number) => (
-                    <div key={index} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-50 dark:to-purple-50 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-floating-heart" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div key={index} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-50 dark:to-purple-50 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                       <input
                         type="checkbox"
                         checked={task.completed}
@@ -284,7 +283,7 @@ export default function LoveApp() {
                       <label className={`flex-1 text-lg text-gray-900 dark:text-gray-900 font-medium ${task.completed ? 'line-through opacity-60' : ''}`}>
                         {task.text}
                       </label>
-                      {task.completed && <span className="text-2xl animate-bounce">🎉</span>}
+                      {task.completed && <span className="text-2xl">🎉</span>}
                     </div>
                   ))}
                 </div>
@@ -641,17 +640,18 @@ export default function LoveApp() {
           : 'linear-gradient(135deg, hsl(338, 95%, 82%) 0%, hsl(320, 90%, 88%) 50%, hsl(335, 85%, 85%) 100%), radial-gradient(circle at 20% 80%, hsla(340, 100%, 95%, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsla(320, 100%, 92%, 0.6) 0%, transparent 50%)'
       }}
     >
-      {/* 📅 Date Display - Top Left */}
-      <div className="fixed top-4 left-4 z-40 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/30">
-        {getCurrentDate()}
-      </div>
-
-      {/* 🍔 Hamburger Menu - Top Right */}
-      <div 
-        className="fixed top-4 right-4 z-50 cursor-pointer text-4xl hover:scale-110 transition-transform duration-200" 
+      {/* 🍔 Hamburger Menu - Top Left */}
+      <button 
+        className="fixed top-4 left-4 z-50 cursor-pointer text-4xl hover:scale-110 transition-transform duration-200 bg-white/20 backdrop-blur-sm rounded-lg p-2 border border-white/30" 
         onClick={toggleSidebar}
+        type="button"
       >
         <span className="text-gray-700 dark:text-gray-300">☰</span>
+      </button>
+
+      {/* 📅 Date Display - Top Right */}
+      <div className="fixed top-4 right-4 z-40 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/30">
+        {getCurrentDate()}
       </div>
 
       {/* 📋 Sidebar - Only visible when toggled */}
@@ -733,7 +733,6 @@ export default function LoveApp() {
       </main>
     </div>
   );
-}
   
 
   
