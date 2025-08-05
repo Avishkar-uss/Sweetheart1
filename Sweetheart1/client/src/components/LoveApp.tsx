@@ -302,7 +302,6 @@ export default function LoveApp() {
                 </div>
               </div>
             </div>
-          </div>
         );
 
       case 'hugs':
