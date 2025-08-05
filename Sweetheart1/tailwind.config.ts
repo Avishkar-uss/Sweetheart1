@@ -58,6 +58,7 @@ const config: Config = {
         "pulse-love": "pulseLove 2s infinite",
         "bounce-huge": "bounceHuge 1s ease-in-out infinite",
         "heart-float": "heartFloat 3s ease-in-out infinite",
+        "floating-heart": "floatingHeart 4s ease-in-out infinite",
         "hug-explosion": "hugExplosion 0.6s ease-out",
       },
       keyframes: {
@@ -76,6 +77,12 @@ const config: Config = {
         heartFloat: {
           "0%": { transform: "translateY(0)", opacity: 1 },
           "100%": { transform: "translateY(-80px)", opacity: 0 },
+        },
+        floatingHeart: {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)", opacity: 0.8 },
+          "25%": { transform: "translateY(-10px) rotate(5deg)", opacity: 1 },
+          "50%": { transform: "translateY(-5px) rotate(-3deg)", opacity: 0.9 },
+          "75%": { transform: "translateY(-15px) rotate(2deg)", opacity: 1 },
         },
         hugExplosion: {
           "0%": { transform: "scale(0.5)", opacity: 0.7 },
