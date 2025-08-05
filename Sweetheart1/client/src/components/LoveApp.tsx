@@ -733,6 +733,6 @@ export default function LoveApp() {
       </main>
     </div>
   );
-  
+} 
 
   
